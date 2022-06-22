@@ -1,3 +1,44 @@
+//Method-1 using Dequeue
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) 
+    {
+        deque<int>dq; //Will store max value
+        vector<int>res;
+        for(int i=0;i<k;i++)
+        {
+           
+            while(!dq.empty()&& nums[i]>=nums[dq.back()])
+            {
+                dq.pop_back();
+            }
+            dq.push_back(i);
+        }
+        res.push_back(nums[dq.front()]);
+        for(int i=k;i<(nums.size());i++)
+        {
+            
+            while(!dq.empty() && (i-dq.front())>=k)
+            {
+                dq.pop_front();
+            }
+            while(!dq.empty() && nums[i]>=nums[dq.back()])
+            {
+                dq.pop_back();
+            }
+            dq.push_back(i);
+            res.push_back(nums[dq.front()]);
+            
+          
+        }
+       
+        return res;
+        
+    }
+};
+
+
+//Method-2 using MultiSet
 class Solution
 {
 public:

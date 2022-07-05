@@ -41,3 +41,27 @@ public:
         return count(root);
     }
 };
+
+//Method-3 
+
+int c=0;
+void count_nodes(TreeNode* root)
+{
+    if(root==NULL)
+    {
+       return; 
+    }
+    c=c+1;
+    count_nodes(root->left);
+    count_nodes(root->right);
+}
+class Solution
+{
+public:
+    int countNodes(TreeNode* root) 
+    {
+        c=0;
+        count_nodes(root);
+        return c;
+    }
+};

@@ -1,3 +1,5 @@
+//Method-1
+
 vector<int>d;
 void preorder(TreeNode* root)
 {
@@ -25,5 +27,37 @@ public:
             temp=temp->right;
         }
         temp=NULL;  
+    }
+};
+
+//Method-2 O(1) Space complexity
+
+void flat(TreeNode* root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    flat(root->left);
+    flat(root->right);
+    if(root->left)
+    {
+        TreeNode* temp=root->left;
+        while(temp->right!=NULL)
+        {
+            temp=temp->right;
+        }
+        temp->right=root->right;
+        root->right=root->left;
+    }
+    root->left=NULL;
+    
+}
+class Solution 
+{
+public:
+    void flatten(TreeNode* root) 
+    {
+        flat(root); 
     }
 };

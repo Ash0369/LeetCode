@@ -1,3 +1,5 @@
+//Method-1
+
 void mark_parent(unordered_map<TreeNode*,TreeNode*>&parent_track,TreeNode* root,TreeNode* target)
 {
     deque<TreeNode*>dq;
@@ -75,5 +77,113 @@ public:
         }
         return result;
 
+    }
+};
+
+//Method-2
+
+vector<int>result;
+//Checking at childrens of the root.
+void nodes_child(TreeNode* target,int k)
+{
+    if(target==NULL)
+    {
+        return ;
+    }
+    if(k<0)
+    {
+        return;
+    }
+    if(k==0)
+    {
+        result.push_back(target->val);
+        return;
+    }
+    else
+    {
+        nodes_child(target->left,k-1);
+        nodes_child(target->right,k-1);
+    }
+
+}
+
+//Checking at ancestors
+
+int nodes_ancestors(TreeNode* root,TreeNode* target,int k)
+{
+    if(root==NULL)
+    {
+        return -1 ;
+    }
+    if(root==target)
+    {
+        nodes_child(target,k); //As we found our target Node so we will print childrens at distance k
+
+        return 0;//As it is target node , so it's distance from target node is 0
+    }
+
+    int dl=nodes_ancestors(root->left,target,k); //we are finding distance of target node from our left child of root.
+
+    if(dl!=-1)//We able to find target
+    {
+        if(dl+1==k)
+        {
+            //Current node is at k distance as dl is distance of left child and we are adding 1 to it.
+            result.push_back(root->val);
+        }
+        else
+        {
+            //We will check subtree of ancestor then , as we got target in left subtree so we will check right subtree
+
+            nodes_child(root->right,k-dl-2); 
+            //As we already travel distnace dl
+            //then 1 unit to root 
+            //and 1 unit to right child
+            //Net=dl+2
+            //So distance left with us k-dl-2
+
+        }
+        return 1+dl;//distance of root from target
+    }
+
+    //Perform same for right subtree
+
+    int dr=nodes_ancestors(root->right,target,k); //we are finding distance of target node from our right child of root.
+
+    if(dr!=-1)//We able to find target
+    {
+        if(dr+1==k)
+        {
+            //Current node is at k distance as dl is distance of right child and we are adding 1 to it.
+            result.push_back(root->val);
+        }
+        else
+        {
+            //We will check subtree of ancestor then , as we got target in right subtree so we will check left subtree
+
+            nodes_child(root->left,k-dr-2); 
+            //As we already travel distnace dr
+            //then 1 unit to root 
+            //and 1 unit to left child
+            //Net=dl+2
+            //So distance left with us k-dl-2
+
+        }
+        return 1+dr;//distance of root from target
+    }
+
+    return -1;
+
+
+}
+
+class Solution 
+{
+public:
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) 
+    {
+        result.clear();
+        nodes_ancestors(root,target,k);
+        return result;
     }
 };

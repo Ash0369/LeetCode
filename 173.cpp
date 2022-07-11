@@ -38,5 +38,45 @@ public:
     }
 };
 
-//Method-2: Time Complexity O(1) and Space Complexity O(1)
+//Method-2: Time Complexity O(1) and Space Complexity O(h)
+
+class BSTIterator 
+{
+public:
+    stack<TreeNode*>left;
+
+    void push_stack(TreeNode* root)
+    {
+        while(root!=NULL)
+        {
+            left.push(root);
+            root=root->left;
+        }
+    }
+    BSTIterator(TreeNode* root) 
+    {
+        push_stack(root);
+    }
+    
+    int next() 
+    {
+        TreeNode* temp=left.top();
+        left.pop();
+        int data=temp->val;
+        if(temp->right)
+        {
+            push_stack(temp->right);
+        }
+        return data;
+    }
+    
+    bool hasNext() 
+    {
+        if(!left.empty())
+        {
+            return true;
+        }
+        return false;
+    }
+};
 

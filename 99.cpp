@@ -43,3 +43,5 @@ public:
 
     }
 };
+
+//Method-1 : O(1) Space Complexity and O(n) Time Complexity

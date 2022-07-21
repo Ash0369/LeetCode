@@ -27,5 +27,31 @@ public:
     }
 };
 
-//Method-1 using map and priority queue and time complexity is O(n)
+//Method-2 using map and max priority queue and time complexity is O(n)
 
+class Solution 
+{
+public:
+    vector<int>topKFrequent(vector<int>& nums, int k) 
+    {
+        int n=nums.size();
+        map<int,int>mp;
+        for(int i=0;i<n;i++)
+        {
+            mp[nums[i]]++;
+        }
+        priority_queue<pair<int,int>>pq;
+        for(auto x:mp)
+        {
+            pq.push(make_pair(x.second,x.first));
+        }
+        vector<int>result;
+        for(int i=0;i<k;i++)
+        {
+            result.push_back(pq.top().second);
+            pq.pop();
+        }
+        return result;
+        
+    }
+};

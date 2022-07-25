@@ -1,3 +1,5 @@
+//Method-1 : Iterative Approach
+
 class Solution 
 {
 public:
@@ -14,5 +16,35 @@ public:
             prev=curr;
         }
         return prev;
+    }
+};
+
+//Recursive Approach
+
+
+ListNode* reverse(ListNode* head)
+{
+    if(head->next!=NULL)
+    {
+        ListNode* temp;
+        temp=reverse(head->next);
+        head->next->next=head;
+        head->next=NULL;
+        return temp;
+    }
+    
+    return head;
+    
+}
+class Solution 
+{
+public:
+    ListNode* reverseList(ListNode* head) 
+    {
+        if(head==NULL)
+        {
+            return NULL;
+        }
+        return reverse(head);
     }
 };

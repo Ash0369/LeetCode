@@ -1,3 +1,5 @@
+//Method-1 : Iterative way
+
 void swap(ListNode*a,ListNode*b)
 {
     int c=a->val;
@@ -24,5 +26,27 @@ public:
             
         }
         return head;
+    }
+};
+
+//Method-2 : Recursive way
+
+ListNode* swap(ListNode* head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+    ListNode* temp=head->next;
+    head->next=swap(head->next->next);
+    temp->next=head;
+    return temp;
+}
+class Solution 
+{
+public:
+    ListNode* swapPairs(ListNode* head) 
+    {
+        return swap(head);
     }
 };

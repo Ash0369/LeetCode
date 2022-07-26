@@ -53,3 +53,56 @@ public:
         return st_back.top();
     }
 };
+
+//Method-2 : Using Linked List
+
+struct List_Node 
+  {
+      string val;
+      List_Node *next;
+      List_Node *prev;
+      List_Node() : val(NULL), next(nullptr) {}
+      List_Node(string x) : val(x), next(nullptr),prev(nullptr) {}
+      List_Node(string x, List_Node *next,List_Node* prev) : val(x), next(next),prev(prev) {}
+  };
+class BrowserHistory 
+{
+public:
+    List_Node* curr;
+    BrowserHistory(string homepage) 
+    {
+        List_Node* head=new List_Node(homepage);
+        head->next=NULL;
+        head->prev=NULL;
+        curr=head;
+    }
+    
+    void visit(string url) 
+    {
+        List_Node* temp=new List_Node(url);
+        curr->next=temp;
+        temp->prev=curr;
+        curr=temp;
+    }
+    
+    string back(int steps) 
+    {
+        while(curr->prev!=NULL && steps>0)
+        {
+            curr=curr->prev;
+            steps--;
+        }
+        return curr->val;
+        
+    }
+    
+    string forward(int steps) 
+    {
+        while(curr->next!=NULL && steps>0)
+        {
+            curr=curr->next;
+            steps--;
+        }
+        return curr->val;
+    }
+};

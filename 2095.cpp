@@ -1,4 +1,4 @@
-//Time Complexity O(2n) and Space Complexity O(1)
+//Method-1 : Pre Calculating Size ,Time Complexity O(2n) and Space Complexity O(1)
 
 class Solution 
 {
@@ -28,6 +28,44 @@ public:
         ListNode*to_del=temp;
         prev->next=temp->next;
         delete(to_del);
+
+        return head;
+    }
+};
+
+//Method-2 : 2 Pointers
+
+class Solution 
+{
+public:
+    ListNode* deleteMiddle(ListNode* head) 
+    {
+        if(head==NULL)
+        {
+            return NULL;
+        }
+        if(head->next==NULL)
+        {
+            return NULL;
+        }
+        ListNode* prev=NULL;
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast->next!=NULL && fast->next->next!=NULL)
+        {
+            fast=fast->next->next;
+            prev=slow;
+            slow=slow->next;
+        }
+        if(fast->next!=NULL)
+        {
+            prev=slow;
+            slow=slow->next;
+        }
+
+        ListNode* todel=slow;
+        prev->next=slow->next;
+        delete(todel);
 
         return head;
     }

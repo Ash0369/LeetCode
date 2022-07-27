@@ -1,3 +1,5 @@
+//Method-1 : Using Recursion
+
 Node* flattend(Node* head,Node* aftr)
 {
     Node* temp=head;
@@ -34,5 +36,39 @@ public:
             return head;
         }
         return flattend(head,NULL);
+    }
+};
+
+
+//Method-2 : Using Stack
+
+class Solution 
+{
+public:
+    Node* flatten(Node* head) 
+    {
+        Node* ptr=head;
+        stack<Node*>st;
+       while(ptr!=NULL)
+        {
+            if(ptr->child)
+            {
+                if(ptr->next)
+                {
+                    st.push(ptr->next);
+                }
+                ptr->child->prev=ptr;
+                ptr->next=ptr->child;
+                ptr->child=NULL;
+            }
+            if(ptr->next==NULL && !st.empty())
+            {
+                ptr->next=st.top();
+                st.top()->prev=ptr;
+                st.pop();
+            }
+            ptr=ptr->next;
+        }
+        return head;
     }
 };

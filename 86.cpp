@@ -1,4 +1,4 @@
-//Method-1 : Time Complexity O(n) , Sapce Complexity O(n)+O(n)
+//Method-1 : Using Queue --> Time Complexity O(n) , Sapce Complexity O(n)+O(n)
 
 class Solution 
 {
@@ -43,6 +43,66 @@ public:
         ptr->next=NULL;
 
         return new_head;
+
+    }
+};
+
+//Method-2 : Time Complexity O(n) and Space Complexity O(1)
+
+class Solution 
+{
+public:
+    ListNode* partition(ListNode* head, int x) 
+    {
+        if(head== NULL || head->next==NULL)
+        {
+            return head;
+        }
+        ListNode* temp=head;
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        ListNode* grt_head=NULL;
+        ListNode* small_head=NULL;
+        ListNode* grt_ptr=grt_head;
+        while(curr!=NULL)
+        {
+            if(curr->val>=x)
+            {
+                if(grt_head==NULL)
+                {
+                    grt_head=curr;
+                    grt_ptr=grt_head;
+                }
+                else
+                {
+                    grt_ptr->next=curr;
+                    grt_ptr=grt_ptr->next;
+                }
+                ListNode* temp=curr;
+                if(prev!=NULL)
+                {
+                    prev->next=curr->next;
+                }
+                curr=curr->next;
+                temp->next=NULL;
+            }
+            else
+            {
+                if(small_head==NULL)
+                {
+                    small_head=curr;
+                }
+                prev=curr;
+                curr=curr->next;
+            }
+            
+        }
+        if(prev==NULL)
+        {
+            return grt_head;
+        }
+        prev->next=grt_head;
+        return small_head;
 
     }
 };

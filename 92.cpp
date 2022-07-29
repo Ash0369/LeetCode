@@ -58,3 +58,45 @@ public:
         return head;
     }
 };
+
+//Method-2 
+
+class Solution 
+{
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) 
+    {
+        if(head==NULL)
+        {
+            return head;
+        }
+        if(left==right)
+        {
+            return head;
+        }
+
+        ListNode* prev=NULL;
+        ListNode dummy(NULL); //If our prev =NULL then our code will not work so we use dummy node so that our previous is never NULL
+        prev=&dummy;
+        dummy.next=head;
+        int k=1;
+        while(k!=left)
+        {
+            prev=prev->next;
+            k++;
+        }
+        ListNode* tail;
+        k=right-left;
+        tail=prev->next;
+        while(k>0)
+        {
+            k--;
+            ListNode* temp;
+            temp=prev->next;
+            prev->next=tail->next;
+            tail->next=tail->next->next;
+            prev->next->next=temp;
+        }
+        return dummy.next;
+    }
+};

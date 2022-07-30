@@ -36,3 +36,48 @@ public:
         }
     }
 };
+
+//Method-2 : O(n) Time and Space Complexity , using Stack
+
+class Solution 
+{
+public:
+    void reorderList(ListNode* head) 
+    {
+        int n=0;
+        ListNode* temp=head;
+        while(temp!=NULL)
+        {
+            n++;
+            temp=temp->next;
+        }
+
+        int k=n/2;
+        temp=head;
+        while(k>0)
+        {
+            temp=temp->next;
+            k--;
+        }
+        if(n%2!=0)
+        {
+            temp=temp->next;
+        }
+        stack<ListNode*>st;
+        while(temp!=NULL)
+        {
+            st.push(temp);
+            temp=temp->next;
+        }
+        temp=head;
+        while(!st.empty())
+        {
+            ListNode* nxt=temp->next;
+            temp->next=st.top();
+            st.top()->next=nxt;
+            st.pop();
+            temp=nxt;
+        }
+        temp->next=NULL;
+    }
+};

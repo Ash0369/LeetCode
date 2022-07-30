@@ -81,3 +81,53 @@ public:
         temp->next=NULL;
     }
 };
+
+//Method-3 : 2 Pointer approach 
+
+ListNode* reverse(ListNode* head)
+{
+    ListNode*curr=head;
+    ListNode*prev=NULL;
+    ListNode*nxt;
+
+    while(curr!=NULL)
+    {
+        nxt=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nxt;
+
+    }
+    return prev;
+}
+class Solution 
+{
+public:
+    void reorderList(ListNode* head) 
+    {
+        ListNode* slow=head;
+        ListNode* fast=head;
+        ListNode* start=head;
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+        }
+        ListNode* new_head=reverse(slow->next);
+        slow->next=NULL;
+
+        ListNode* temp=head;
+        ListNode* temp2=new_head;
+
+        while(temp2!=NULL)
+        {
+            ListNode* store=temp->next;
+            temp->next=temp2;
+            ListNode* store2=temp2->next;
+            temp2->next=store;
+            temp2=store2;
+            temp=store;
+
+        }
+    }
+};

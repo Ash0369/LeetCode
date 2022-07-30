@@ -52,3 +52,30 @@ public:
         return true;
     }
 };
+
+//Method-3 : Using Recursion
+
+ListNode* temp;
+bool checker(ListNode* head)
+{
+    if(head==NULL)
+    {
+        return true;
+    }
+    bool res=checker(head->next);
+    if(head->val!=temp->val)
+    {
+        return false;
+    }
+    temp=temp->next;
+    return res;
+}
+class Solution 
+{
+public:
+    bool isPalindrome(ListNode* head) 
+    {
+        temp=head;
+        return checker(head);
+    }
+};

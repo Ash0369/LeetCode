@@ -51,3 +51,26 @@ public:
         return false;
     }
 };
+
+//Method-3 : Without Loop
+
+class Solution 
+{
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        if(n<=0)
+        {
+            return false;
+        }
+        if(n==1)
+        {
+            return true;
+        }
+        if((n&(n-1))==0  && (n-1)%2==1)
+        {
+            return true;
+        }
+        return false;
+    }
+};

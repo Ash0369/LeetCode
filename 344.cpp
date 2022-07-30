@@ -28,3 +28,28 @@ public:
         }
     }
 };
+
+//Method-3 : Using 2 Pointer
+
+
+void swap(char &a,char &b)
+{
+    char c=a;
+    a=b;
+    b=c;
+}
+class Solution 
+{
+public:
+    void reverseString(vector<char>& s) 
+    {
+        int ptr1=0;
+        int ptr2=s.size()-1;
+        while(ptr2>ptr1)
+        {
+            swap(s[ptr1],s[ptr2]);
+            ptr1++;
+            ptr2--;
+        }
+    }
+};

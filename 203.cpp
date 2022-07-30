@@ -1,3 +1,5 @@
+//Method-1 
+
 class Solution 
 {
 public:
@@ -20,5 +22,25 @@ public:
             temp=temp->next;
         }
         return dummy->next;
+    }
+};
+
+//Method-2 : Using Recurssion
+
+class Solution 
+{
+public:
+    ListNode* removeElements(ListNode* head, int val) 
+    {
+        if(head==NULL)
+        {
+            return head;
+        }
+        head->next=removeElements(head->next,val);
+        if(head->val==val)
+        {
+            return head->next;
+        }
+        return head;
     }
 };

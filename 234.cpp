@@ -25,3 +25,30 @@ public:
         return true;
     }
 };
+
+//Method-2 : Using deque
+
+class Solution 
+{
+public:
+    bool isPalindrome(ListNode* head) 
+    {
+        deque<int>dq;
+        ListNode* temp=head;
+        while(temp!=NULL)
+        {
+            dq.push_back(temp->val);
+            temp=temp->next;
+        }
+        while(!dq.empty() && dq.size()!=1)
+        {
+            if(dq.front()!=dq.back())
+            {
+                return false;
+            }
+            dq.pop_back();
+            dq.pop_front();
+        }
+        return true;
+    }
+};

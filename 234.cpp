@@ -79,3 +79,48 @@ public:
         return checker(head);
     }
 };
+
+//Method-4 : Using 2 Pointers
+
+ListNode* reverse(ListNode* head)
+{
+    ListNode* curr=head;
+    ListNode* prev=NULL;
+    ListNode* next=head;
+    while(curr!=NULL)
+    {
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+    }
+    return prev;
+}
+class Solution 
+{
+public:
+    bool isPalindrome(ListNode* head) 
+    {
+        ListNode* fast=head;
+        ListNode* slow=head;
+        ListNode* prev=head;
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            fast=fast->next->next;
+            prev=slow;
+            slow=slow->next;
+        }
+        ListNode* new_head=reverse(slow);
+        prev->next=NULL;
+        while(new_head!=NULL && head!=NULL)
+        {
+            if(new_head->val!=head->val)
+            {
+                return false;
+            }
+            new_head=new_head->next;
+            head=head->next;
+        }
+        return true;
+    }
+};

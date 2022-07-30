@@ -53,3 +53,28 @@ public:
         }
     }
 };
+
+//Method-4 : Recurssion
+
+void swap(char &a,char &b)
+{
+    char c=a;
+    a=b;
+    b=c;
+}
+void recursion(int index,vector<char>&s,int end)
+{
+    if(index<(end/2))
+    {
+        swap(s[index],s[end-index-1]);
+        recursion(index+1,s,end);
+    }
+}
+class Solution 
+{
+public:
+    void reverseString(vector<char>& s) 
+    {
+        recursion(0,s,s.size());
+    }
+};

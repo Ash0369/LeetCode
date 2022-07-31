@@ -18,6 +18,10 @@ void combiantion(int target,vector<int>cs,int sum,int k,int ele,int prev)
     {
         return;
     }
+    if(prev>target)
+    {
+        return;
+    }
     cs.push_back(prev+1);
     combiantion(target,cs,sum+prev+1,k,ele+1,prev+1);
     cs.pop_back();

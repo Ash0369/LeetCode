@@ -1,3 +1,5 @@
+//Method-1 : Bit Manuplation
+
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums)
@@ -20,5 +22,31 @@ public:
             sol.push_back(sub);
         }
         return sol;
+    }
+};
+
+//Method-2 : recurssion
+
+vector<vector<int>>result;
+void subset(vector<int>&nums,int index,vector<int>sub)
+{
+    if(index==nums.size())
+    {
+        result.push_back(sub);
+        return;
+    }
+    subset(nums,index+1,sub);
+    sub.push_back(nums[index]);
+    subset(nums,index+1,sub);
+}
+class Solution 
+{
+public:
+    vector<vector<int>> subsets(vector<int>& nums) 
+    {
+        result.clear();
+        vector<int>sub;
+        subset(nums,0,sub);
+        return result;
     }
 };

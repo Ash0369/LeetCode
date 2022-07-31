@@ -1,6 +1,10 @@
 vector<vector<int>>result;
 void combiantion(vector<int>&candidates,int target,vector<int>cs,int sum,int index)
 {
+    if(sum>target)
+    {
+        return;
+    }
     if(index>=candidates.size() && sum!=target)
     {
         return;

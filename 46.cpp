@@ -1,3 +1,5 @@
+//Time Complexity : O(n!*n) and Space Complexity : O(n)+O(n)
+
 vector<vector<int>>result;
 void permutation(vector<int>&nums,vector<int>&per,vector<int>&visited)
 {

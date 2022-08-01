@@ -1,5 +1,5 @@
 vector<string>result;
-void generate(int open,int close,string s,int n)
+void generate(int open,int close,string &s,int n)
 {
     if(s.length()==(2*n))
     {
@@ -23,7 +23,8 @@ public:
     vector<string> generateParenthesis(int n) 
     {
         result.clear();
-        generate(1,0,"(",n);
+        string s="(";
+        generate(1,0,s,n);
         return result;
     }
 };

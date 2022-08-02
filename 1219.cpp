@@ -1,7 +1,7 @@
 //Method-1 : Using a Visited Array
 
 int stored=0;
-void gold(vector<vector<int>>&grid,int x_size,int y_size,int x,int y,int gold_path,vector<vector<int>>&visited)
+void gold(vector<vector<int>>&grid,int x_size,int y_size,int x,int y,int &gold_path,vector<vector<int>>&visited)
 {
     if(visited[x][y]==1)
     {
@@ -35,6 +35,7 @@ void gold(vector<vector<int>>&grid,int x_size,int y_size,int x,int y,int gold_pa
         gold(grid,x_size,y_size,x,y-1,gold_path,visited);
     }  
     visited[x][y]=0;
+    gold_path=gold_path-grid[x][y];
 }
 class Solution 
 {
@@ -49,7 +50,8 @@ public:
         {
             for(int y=0;y<y_size;y++)
             {
-                gold(grid,x_size-1,y_size-1,x,y,0,visited);
+                int gold_path=0;
+                gold(grid,x_size-1,y_size-1,x,y,gold_path,visited);
             }
         }
         return stored;

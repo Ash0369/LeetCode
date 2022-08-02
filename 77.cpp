@@ -39,37 +39,28 @@ public:
 
 //Method-2 :
 
-vector<vector<int>>result;
-void combination(int k,int n,vector<int>&curr,int index)
-{
-    if(curr.size()==k)
-    {
-        result.push_back(curr);
-        return;
-    }
-    if(index>n)
-    {
-        return;
-    }
-    combination(k,n,curr,index+1);
-    curr.push_back(index);
-    combination(k,n,curr,index+1);
-    curr.pop_back();
-}
-
 class Solution 
 {
 public:
-     vector<vector<int>>combine(int n, int k)
+    vector<vector<int>>result;
+    void combination(int index, int k,vector<int>&curr,int n)
     {
-        result.clear();
-        vector<int>curr;
-        for(int i=1;i<=n;i++)
+        if(curr.size()==k)    // base case
         {
-            curr.push_back(i);
-            combination(k,n,curr,i+1);
-            curr.pop_back();
+            result.push_back(curr);
+            return;
         }
-        return result;
+        for(int i=index;i<n+1;i++)
+        {
+            curr.push_back(i);  //consider the current element i
+            combination(i+1,k,curr,n); // generate combinations
+            curr.pop_back(); //proceed to next element
+        }
+    }
+    vector<vector<int>> combine(int n, int k) 
+    {
+        vector<int>current;
+        combination(1,k,current,n);
+        return result; //return answer
     }
 };

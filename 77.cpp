@@ -35,3 +35,41 @@ public:
         return result;
     }
 };
+
+
+//Method-2 :
+
+vector<vector<int>>result;
+void combination(int k,int n,vector<int>&curr,int index)
+{
+    if(curr.size()==k)
+    {
+        result.push_back(curr);
+        return;
+    }
+    if(index>n)
+    {
+        return;
+    }
+    combination(k,n,curr,index+1);
+    curr.push_back(index);
+    combination(k,n,curr,index+1);
+    curr.pop_back();
+}
+
+class Solution 
+{
+public:
+     vector<vector<int>>combine(int n, int k)
+    {
+        result.clear();
+        vector<int>curr;
+        for(int i=1;i<=n;i++)
+        {
+            curr.push_back(i);
+            combination(k,n,curr,i+1);
+            curr.pop_back();
+        }
+        return result;
+    }
+};

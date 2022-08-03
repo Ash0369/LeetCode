@@ -74,3 +74,21 @@ public:
         return s;
     }
 };
+
+//Method-3 : Atleast taking 1 bit opposite of every string
+
+class Solution 
+{
+public:
+    string findDifferentBinaryString(vector<string>& nums) 
+    {
+        string res;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            nums[i][i] == '0' ? nums[i][i]='1' : nums[i][i]='0'; 
+            res=res+nums[i][i];
+        } 
+        
+        return res; 
+    }
+};

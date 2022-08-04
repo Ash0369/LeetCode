@@ -18,7 +18,7 @@ public:
 };
 
 
-//Method-2 : DP
+//Method-2 : Top Down DP
 
 int fibonacci(int n,vector<int>&vec)
 {
@@ -49,5 +49,27 @@ public:
     {
         vector<int>vec(n+1,-1);
         return fibonacci(n,vec);
+    }
+};
+
+//Method-3 : Bottom Up DP (Removed Recurssion stack space)
+
+class Solution 
+{
+public:
+    int fib(int n) 
+    {
+        if(n==0)
+        {
+            return 0;
+        }
+        vector<int>vec(n+1,-1);
+        vec[0]=0;
+        vec[1]=1;
+        for(int i=2;i<=n;i++)
+        {
+            vec[i]=vec[i-1]+vec[i-2]; //We have remove recurssion stack space.
+        }
+        return vec[n];
     }
 };

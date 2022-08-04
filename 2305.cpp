@@ -11,6 +11,11 @@ void distribute(vector<int>&cookies,int index,vector<int>&dist,int max_value)
         dist[i]=dist[i]+cookies[index];
         distribute(cookies,index+1,dist,max(max_value,dist[i]));
         dist[i]=dist[i]-cookies[index];
+        if(dist[i]==0)
+        {
+            break;
+        }
+           
     }
 }
 class Solution 

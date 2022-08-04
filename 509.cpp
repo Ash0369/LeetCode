@@ -18,7 +18,7 @@ public:
 };
 
 
-//Method-2 : Top Down DP
+//Method-2 : Top Down DP O(n) Time Complexity and O(n) Space Complexity and O(n) Auxillary Space Complexity
 
 int fibonacci(int n,vector<int>&vec)
 {
@@ -52,7 +52,7 @@ public:
     }
 };
 
-//Method-3 : Bottom Up DP (Removed Recurssion stack space)
+//Method-3 : Bottom Up DP (Removed Recurssion stack space)  O(n) Time Complexity and O(n) Space Complexity
 
 class Solution 
 {
@@ -71,5 +71,31 @@ public:
             vec[i]=vec[i-1]+vec[i-2]; //We have remove recurssion stack space.
         }
         return vec[n];
+    }
+};
+
+//Method-4 : O(1) Space and O(n) Time complexity
+
+class Solution 
+{
+public:
+    int fib(int n) 
+    {
+        if(n==0)
+        {
+            return 0;
+        }
+        vector<int>vec(n+1,-1);
+        int a=0;
+        int b=1;
+        int c;
+        for(int i=2;i<=n;i++)
+        {
+            c=a+b;
+            a=b;
+            b=c;
+            //We have remove vector space.
+        }
+        return b;
     }
 };

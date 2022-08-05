@@ -1,11 +1,10 @@
 //Method-1 : Top Down Approach Time Complexity O(n) , Space Complexity O(n) , Auxillary Space Complexity O(n)
 
-int step=0;
 int climb(int n,int curr,vector<int>&vec)
 {
-    if(curr>n)
+    if(curr==n-1)
     {
-        return 0;
+        return 1;
     }
     if(curr==n)
     {
@@ -28,7 +27,7 @@ class Solution
 public:
     int climbStairs(int n) 
     {
-        vector<int>vec(n+3,-1);
+        vector<int>vec(n+1,-1);
         return climb(n,0,vec);
     }
 };

@@ -1,3 +1,5 @@
+//Method-1 Using Linked List and Map
+
 struct List_Node 
 {
     int key;
@@ -78,5 +80,48 @@ public:
             dummy_head->next->prev=dummy_head;
             create(key,value);
         }
+    }
+};
+
+
+//Method-2 : Using STL List and Map
+
+class LRUCache 
+{
+public:
+    unordered_map<int,list<pair<int,int>>::iterator>mp;
+    list<pair<int,int>>l;
+    int max_capacity;
+
+    LRUCache(int capacity) 
+    {
+        max_capacity=capacity;
+    }
+    int get(int key) 
+    {  
+        if(mp.find(key)==mp.end())
+        {
+            return -1;
+        }
+        l.splice(l.begin(),l,mp[key]);
+        return mp[key]->second;
+        
+    }
+    
+    void put(int key, int value) 
+    {
+       if(mp.find(key)!=mp.end())
+       {
+            mp[key]->second=value;
+            l.splice(l.begin(),l,mp[key]);
+            return;
+       }
+       if(l.size()==max_capacity)
+       {
+            mp.erase(l.back().first);
+            l.pop_back();
+       }
+       l.push_front(make_pair(key,value));
+       mp[key]=l.begin();
     }
 };

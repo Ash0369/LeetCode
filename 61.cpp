@@ -1,3 +1,5 @@
+//Method-1 : Brute Force Approach
+
 class Solution 
 {
 public:
@@ -45,4 +47,47 @@ public:
         return dummy_head->next;
     }
     
+};
+
+//Method-2 : Optimized way
+
+class Solution 
+{
+public:
+    ListNode* rotateRight(ListNode* head, int k) 
+    {
+        if(head==NULL || head->next==NULL)
+        {
+            return head;
+        }
+        ListNode* temp=head;
+        int length=0;
+        while(temp!=NULL)
+        {
+            temp=temp->next;
+            length++;
+        }
+        int rem=k%length;
+        if(rem==0)
+        {
+            return head;
+        }
+        int to_traverse=length-rem-1;
+        temp=head;
+        while(to_traverse>0)
+        {
+            temp=temp->next;
+            to_traverse=to_traverse-1;
+        }
+        ListNode* rev_head=temp->next;
+        temp->next=NULL;
+
+        temp=rev_head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=head;
+        return rev_head;
+    }  
 };

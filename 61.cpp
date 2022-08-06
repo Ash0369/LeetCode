@@ -91,3 +91,39 @@ public:
         return rev_head;
     }  
 };
+
+//Using Circular Linked List
+
+class Solution 
+{
+public:
+    ListNode* rotateRight(ListNode* head, int k) 
+    {
+        if(head==NULL || head->next==NULL)
+        {
+            return head;
+        }
+        ListNode* temp=head;
+        int length=1;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+            length++;
+        }
+        int rem=k%length;
+
+        temp->next=head; //Making it Circular
+
+        int to_iter=length-rem-1;
+        temp=head;
+        while(to_iter>0)
+        {
+            temp=temp->next;
+            to_iter--;
+        }
+        ListNode* new_head=temp->next;
+        temp->next=NULL;
+        return new_head;
+      
+    }  
+};

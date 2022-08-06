@@ -1,3 +1,5 @@
+//Method-1 : Using Linked List
+
 struct List_Node 
 {
     int userId;
@@ -48,6 +50,64 @@ public:
                 }
             }
             temp=temp->next;
+        }
+        return result;
+    }
+    
+    void follow(int followerId, int followeeId) 
+    {
+        mp[followerId].insert(followeeId);
+    }
+    
+    void unfollow(int followerId, int followeeId) 
+    {
+        mp[followerId].erase(followeeId);
+    }
+};
+
+//Methd-2 : Using Priority Queue
+
+class Twitter 
+{
+public:
+
+    priority_queue<pair<int,pair<int,int>>>pq;
+    priority_queue<pair<int,pair<int,int>>>back_up;
+    int k;
+    map<int,set<int>>mp;
+    Twitter() 
+    {
+        k=0;
+    }
+    
+    void postTweet(int userId, int tweetId) 
+    {
+        pq.push(make_pair(k,make_pair(userId,tweetId)));
+        k++;
+    }
+    
+    vector<int>getNewsFeed(int userId) 
+    {
+
+        //If user not follow himself
+        mp[userId].insert(userId);
+        int count=0;
+        vector<int>result;
+        while(count<10 && !pq.empty())
+        {
+            if(mp[userId].find(pq.top().second.first)!=mp[userId].end())
+            {
+                result.push_back(pq.top().second.second);
+                count++;
+            }
+            back_up.push(pq.top());
+            pq.pop();
+            
+        }
+        while(!back_up.empty())
+        {
+            pq.push(back_up.top());
+            back_up.pop();
         }
         return result;
     }

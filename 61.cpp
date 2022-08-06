@@ -92,7 +92,7 @@ public:
     }  
 };
 
-//Using Circular Linked List
+//Method-3 : Using Circular Linked List
 
 class Solution 
 {

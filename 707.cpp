@@ -1,4 +1,4 @@
-//Method-1 : Brute Force
+//Method-1 : Using Linked List
 
 
 struct List_Node 
@@ -139,6 +139,118 @@ public:
         }
         temp->next=temp->next->next;
         temp->next->prev=temp;
+        curr_size--;
+    }
+};
+
+//Method-2 : Using Deque
+
+
+class MyLinkedList 
+{
+public:
+    deque<int>ele;
+    deque<int>helper;
+    int curr_size=0;
+    MyLinkedList() 
+    {
+        
+    }
+    
+    int get(int index) 
+    {
+        if(index>=curr_size)
+        {
+            return -1;
+        }
+        while(index>0)
+        {
+            helper.push_back(ele.front());
+            ele.pop_front();
+            index--;
+        }
+        int val=ele.front();
+        while(!helper.empty())
+        {
+            ele.push_front(helper.back());
+            helper.pop_back();
+        }
+        return val;
+    }
+    
+    void addAtHead(int val) 
+    {
+        ele.push_front(val);
+        curr_size++;
+    }
+    
+    void addAtTail(int val) 
+    {
+        ele.push_back(val);
+        curr_size++;
+    }
+    
+    void addAtIndex(int index, int val) 
+    {
+        if(index>curr_size)
+        {
+            return;
+        }
+        if(index==0)
+        {
+            addAtHead(val);
+            return;
+        }
+        if(index==curr_size)
+        {
+            addAtTail(val);
+            return;
+        }
+        while(index>0)
+        {
+            helper.push_back(ele.front());
+            ele.pop_front();
+            index--;
+        }
+        ele.push_front(val);
+        while(!helper.empty())
+        {
+            ele.push_front(helper.back());
+            helper.pop_back();
+        }
+        curr_size++;
+    }
+    
+    void deleteAtIndex(int index) 
+    {
+        if(index>=curr_size)
+        {
+            return;
+        }
+        if(index==0)
+        {
+            ele.pop_front();
+            curr_size--;
+            return;
+        }
+        if(index==curr_size-1)
+        {
+            ele.pop_back();
+            curr_size--;
+            return;
+        }
+        while(index>0)
+        {
+            helper.push_back(ele.front());
+            ele.pop_front();
+            index--;
+        }
+        ele.pop_front();
+        while(!helper.empty())
+        {
+            ele.push_front(helper.back());
+            helper.pop_back();
+        }
         curr_size--;
     }
 };

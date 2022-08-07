@@ -1,3 +1,6 @@
+//Method-1 : Brute Force
+
+
 struct List_Node 
 {
     int val;

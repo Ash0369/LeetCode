@@ -48,3 +48,87 @@ public:
         
     }
 };
+
+
+//Method-2 : Tabulation
+
+
+int robber(vector<int>& nums) 
+{
+    if(nums.size()==1)
+    {
+        return nums[0];
+    }
+    vector<int>dp(nums.size(),-1);
+    dp[0]=nums[0];
+    dp[1]=max(nums[0],nums[1]);
+    for(int i=2;i<nums.size();i++)
+    {
+        int a=nums[i]+dp[i-2];
+        int b=dp[i-1];
+        dp[i]=max(a,b);
+    }
+    return dp[nums.size()-1];
+}
+class Solution 
+{
+public:
+    int rob(vector<int>& nums) 
+    {
+         if(nums.size()==1)
+         {
+             return nums[0];
+         }
+        vector<int>temp;
+        for(int i=1;i<nums.size();i++)
+        {
+            temp.push_back(nums[i]);
+        }
+        int a=robber(temp);
+        nums.pop_back();
+        int b=robber(nums);
+        return max(a,b);
+        
+    }
+};
+
+//Method-3 : Space Optimization
+
+int robber(vector<int>& nums) 
+{
+    if(nums.size()==1)
+    {
+        return nums[0];
+    }
+    
+    int a=nums[0];
+    int b=max(nums[0],nums[1]);
+    for(int i=2;i<nums.size();i++)
+    {
+        int c=nums[i]+a;
+        int d=max(c,b);
+        a=b;
+        b=d;
+    }
+    return b;
+}
+class Solution 
+{
+public:
+    int rob(vector<int>& nums) 
+    {
+        if(nums.size()==1)
+        {
+            return nums[0];
+        }
+        vector<int>temp;
+        for(int i=1;i<nums.size();i++)
+        {
+            temp.push_back(nums[i]);
+        }
+        int a=robber(temp);
+        nums.pop_back();
+        int b=robber(nums);
+        return max(a,b);
+    }
+};

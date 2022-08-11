@@ -60,3 +60,29 @@ public:
 
     }
 };
+
+
+//Method-3 : Time Complexity O(n*m) and Space Coomplexity O(m)
+
+class Solution 
+{
+public:
+    int uniquePaths(int m, int n) 
+    {
+        vector<int>vec(n,1);
+        int a=1;
+        int b;
+        int prev=1;
+        for(int i=1;i<m;i++)
+        {
+            prev=1;
+            for(int j=1;j<n;j++)
+            {
+                vec[j]=vec[j]+prev;
+                prev=vec[j];
+            }
+        }
+        return prev;
+
+    }
+};

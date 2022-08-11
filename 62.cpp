@@ -1,4 +1,6 @@
-int counter=0;
+//Method-1 : Time Complexity 2^(m*n)
+
+
 int  count_paths(int x,int y,vector<vector<int>>&vec)
 {
     if(x<0 || y<0)

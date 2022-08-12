@@ -38,7 +38,7 @@ public:
     }
 };
 
-//Method-2 : 
+//Method-2 : Tabulation
 
 class Solution 
 {
@@ -77,5 +77,47 @@ public:
     }
 };
 
-//Method-3 : 
+//Method-3 : Space Optimization
 
+
+class Solution 
+{
+public:
+    int minPathSum(vector<vector<int>>&grid) 
+    {
+        int m=grid.size();
+        int n=grid[0].size();
+        vector<int>dp(n,0);
+        int prev=0;
+        for(int i=0;i<m;i++)
+        {
+            prev=0;
+            for(int j=0;j<n;j++)
+            {
+                if(i==0 && j==0)
+                {
+                    prev=grid[0][0];
+                    dp[j]=grid[0][0];
+                }
+                else if(i!=0 && j!=0)
+                {
+                    int a=grid[i][j]+dp[j];
+                    int b=grid[i][j]+prev;
+                    prev=min(a,b);
+                    dp[j]=min(a,b);
+                }
+                else if(i==0)
+                {
+                    dp[j]=prev+grid[i][j];
+                    prev=dp[j];
+                }
+                else if(j==0)
+                {
+                    dp[j]=dp[j]+grid[i][j];
+                    prev=dp[j];
+                }
+            }
+        }
+        return prev;
+    }
+};

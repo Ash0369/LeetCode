@@ -49,3 +49,34 @@ public:
         return dp[0][0];
     }
 };
+
+
+//Method-3 : Space Optimization : 
+
+
+class Solution 
+{
+public:
+    int minimumTotal(vector<vector<int>>& triangle) 
+    {
+        vector<int>dp(triangle.size(),-1);
+        vector<int>curr(triangle.size(),-1);
+        int n= triangle.size();
+        for(int j=0;j<n;j++)
+        {
+            dp[j]=triangle[n-1][j];
+        }
+        for(int i=n-2;i>=0;i--)
+        {
+            for(int j=i;j>=0;j--)
+            {
+                int down=triangle[i][j]+dp[j];
+                int diag=triangle[i][j]+dp[j+1];
+                curr[j]=min(down,diag);
+            }
+            dp=curr;
+                
+        }
+        return dp[0];
+    }
+};

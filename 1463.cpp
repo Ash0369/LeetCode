@@ -161,3 +161,66 @@ public:
         
     }
 };
+
+//Space Optimization 
+
+class Solution 
+{
+public:
+    int cherryPickup(vector<vector<int>>& grid) 
+    {
+        int r=grid.size();
+        int c=grid[0].size();
+
+        vector<vector<int>>front(c,vector<int>(c,-1));
+        vector<vector<int>>current(c,vector<int>(c,-1));
+        for(int j1=0;j1<c;j1++)
+        {
+            for(int j2=0;j2<c;j2++)
+            {
+                if(j1==j2)
+                {
+                   front[j1][j2]=grid[r-1][j1];
+                }
+                else
+                {
+                    front[j1][j2]=grid[r-1][j1]+grid[r-1][j2];
+                }
+            }
+        }
+        for(int i=r-2;i>=0;i--)
+        {
+            for(int j1=0;j1<c;j1++)
+            {
+                for(int j2=0;j2<c;j2++)
+                {
+                    int nxt_lvl=-1e8;
+                    for(int a=-1;a<=1;a++)
+                    {
+                        for(int b=-1;b<=1;b++)
+                        {
+                            int cherry=-1e8;
+                            if(j1+a>=0 && j2+b>=0 && j1+a<c && j2+b<c)
+                            {
+                                if(j1==j2)
+                                {
+                                    cherry=grid[i][j1];
+                                }
+                                else
+                                {
+                                    cherry=grid[i][j2]+grid[i][j1];
+                                }
+                                cherry=cherry+front[j1+a][j2+b];
+                            }
+                            nxt_lvl=max(nxt_lvl,cherry);
+                        }
+                    }
+                   current[j1][j2]=nxt_lvl;
+                }
+            }
+            front=current;
+        }
+        return front[0][c-1];
+        
+    }
+};

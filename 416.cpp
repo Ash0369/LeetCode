@@ -92,3 +92,49 @@ public:
         return dp[n-1][k];
     }
 };
+
+
+//method-3 : Space Optimization 
+
+class Solution 
+{
+public:
+    bool canPartition(vector<int>& nums) 
+    {
+        int sum=0;
+        for(auto x:nums)
+        {
+            sum=sum+x;
+        }
+        if(sum%2!=0)
+        {
+            return false;
+        }
+        int k=sum/2;
+
+        vector<bool>dp(k+1,false);
+        vector<bool>curr(k+1,false);
+        int n=nums.size();
+        dp[0]=true;
+        if(nums[0]<=k)
+        {
+            dp[nums[0]]=true;
+        }
+
+        for(int i=1;i<n;i++)
+        {
+            for(int j=1;j<=k;j++)
+            {
+                bool not_taking=dp[j];
+                bool taking=false;
+                if(j>=nums[i])
+                {
+                   taking= dp[j-nums[i]];
+                }
+                curr[j]= not_taking|taking;
+            }
+            dp=curr;
+        }
+        return dp[k];
+    }
+};

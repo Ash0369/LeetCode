@@ -1,3 +1,5 @@
+//Method-1 : 
+
 class Solution 
 {
 public:
@@ -41,6 +43,48 @@ public:
                 result.push_back(temp);
                 temp.clear();
             }
+        }
+        return result;
+    }
+};
+
+
+//Method-2 : 
+
+class Solution 
+{
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) 
+    {
+        if(root==NULL)
+        {
+            return {};
+        }
+        vector<vector<int>>result;
+        vector<int>level;
+        queue<TreeNode*>q;
+        q.push(root);
+        q.push(NULL);
+        while(!q.empty() && (!level.empty() || q.size()!=1))
+        {
+            if(q.front()==NULL)
+            {
+                q.pop();
+                q.push(NULL);
+                result.push_back(level);
+                level.clear();
+                continue;
+            }
+            if(q.front()->left!=NULL)
+            {
+                q.push(q.front()->left);
+            }
+            if(q.front()->right!=NULL)
+            {
+                q.push(q.front()->right);
+            }
+            level.push_back(q.front()->val);
+            q.pop();
         }
         return result;
     }

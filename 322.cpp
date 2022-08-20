@@ -48,3 +48,48 @@ public:
         return -1;
     }
 };
+
+//Method-2 : Tabulation
+
+
+class Solution 
+{
+public:
+    int coinChange(vector<int>& coins, int amount) 
+    {
+        int n=coins.size();
+        vector<vector<int>>dp(n,vector<int>(amount+1,1e8));
+        
+        for(int i=0;i<n;i++)
+        {
+            dp[i][0]=0;
+        }
+        for(int i=0;i<=amount;i++)
+        {
+            if(i%coins[0]==0)
+            {
+                dp[0][i]=i/coins[0];
+            }
+        }
+        
+
+        for(int index=1;index<n;index++)
+        {
+            for(int a=1;a<=amount;a++)
+            {
+                int not_pick=0+dp[index-1][a];
+                int pick_up=INT_MAX;
+                if(a>=coins[index])
+                {
+                    pick_up=1+dp[index][a-coins[index]];
+                }
+                dp[index][a]=min(pick_up,not_pick);
+            }
+        }
+        if(dp[n-1][amount]==1e8)
+        {
+            return -1;
+        }
+        return dp[n-1][amount];
+    }
+};

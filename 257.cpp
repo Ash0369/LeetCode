@@ -2,8 +2,6 @@ void check(TreeNode *root,vector<string>&res,string temp)
 {
     if(root->left==NULL && root->right==NULL)
     {
-        //temp=temp+"->";
-        //temp=temp+(to_string(root->val));
         res.push_back(temp);
     }
     if(root->left)

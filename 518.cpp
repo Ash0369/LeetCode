@@ -76,3 +76,43 @@ public:
         return dp[n-1][amount];
     }
 };
+
+
+//Method-3 : Space Optimization 
+
+class Solution 
+{
+public:
+    int change(int amount, vector<int>& coins) 
+    {
+        vector<int>dp(vector<int>(amount+1,0));
+        vector<int>curr(vector<int>(amount+1,0));
+        int n=coins.size();
+        
+        dp[0]=1; //1st base case
+        
+        for(int j=amount;j>0;j--)
+        {
+            if(j%coins[0]==0)
+            {
+                dp[j]=1;
+            }
+        }
+
+        for(int i=1;i<n;i++)
+        {
+            for(int j=0;j<=amount;j++)
+            {
+                int not_pick=dp[j];
+                int pick=0;
+                if(j>=coins[i])
+                {
+                    pick=curr[j-coins[i]];
+                }
+                curr[j]=not_pick+pick;
+            }
+            dp=curr;
+        }
+        return dp[amount];
+    }
+};

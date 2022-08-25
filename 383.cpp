@@ -1,3 +1,5 @@
+//Method-1 : 
+
 class Solution 
 {
 public:
@@ -25,6 +27,33 @@ public:
                 }
             }
             else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+//Method-2: 
+
+class Solution 
+{
+public:
+    bool canConstruct(string ransomNote, string magazine) 
+    {
+        int arr[26]={0};
+        for(auto x:magazine)
+        {
+            arr[int(x)-97]++;
+        }
+        for(auto x:ransomNote)
+        {
+            arr[int(x)-97]--;
+        }
+        for(int i=0;i<26;i++)
+        {
+            if(arr[i]<0)
             {
                 return false;
             }

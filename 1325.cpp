@@ -14,9 +14,6 @@ bool del(TreeNode* &root,int target)
         }
         return false;
     }
-    
-    
-    
     bool a=del(root->left,target);
     bool b=del(root->right,target);
     

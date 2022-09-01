@@ -1,3 +1,5 @@
+//Method-1 : 
+
 bool del(TreeNode* &root,int target)
 {
     if(root==NULL)
@@ -47,5 +49,38 @@ public:
             return NULL;
         }
         return root;
+    }
+};
+
+
+//Method-2 : 
+
+TreeNode *del(TreeNode* &root,int target)
+{
+    if(root==NULL)
+    {
+        return NULL;
+    }
+    if(root->left==NULL && root->right==NULL)
+    {
+        if(root->val==target)
+        {
+            return NULL;
+        }
+    }    
+    root->left=del(root->left,target);
+    root->right=del(root->right,target);
+    if(root->left==NULL && root->right==NULL && root->val==target)
+    {
+        root=NULL;
+    }
+    return root;
+}
+class Solution 
+{
+public:
+    TreeNode* removeLeafNodes(TreeNode* root, int target) 
+    {
+        return del(root,target);
     }
 };

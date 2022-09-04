@@ -1,3 +1,6 @@
+//Method-1 : Time Complexity is O(n*m) and Space Complexity is O(n*m)+O(n+m)
+
+
 int longest(string &text1,string &text2,int x1,int x2,vector<vector<int>>&dp)
 {
     if(x1<0 || x2<0)
@@ -28,5 +31,39 @@ public:
         int n2=text2.size();
         vector<vector<int>>dp(n1,vector<int>(n2,-1));
         return longest(text1,text2,n1-1,n2-1,dp);
+    }
+};
+
+
+//Method-2 : Tabulation, with shifting of index in base case
+
+class Solution 
+{
+public:
+    int longestCommonSubsequence(string text1,string text2) 
+    {
+        int n1=text1.size();
+        int n2=text2.size();
+        vector<vector<int>>dp(n1+1,vector<int>(n2+1,0));
+        
+        for(int i=1;i<=n1;i++)
+        {
+            for(int j=1;j<=n2;j++)
+            {
+                if(text1[i-1]==text2[j-1])
+                {
+                       dp[i][j]=1+dp[i-1][j-1];
+                }
+                else
+                {
+                    int a=0;
+                    int b=0;
+                    a=dp[i-1][j];
+                    b=dp[i][j-1];
+                    dp[i][j]=max(a,b);
+                }
+             }
+        }
+        return dp[n1][n2];
     }
 };

@@ -61,3 +61,41 @@ public:
         flat(root); 
     }
 };
+
+
+//Method -3 : 
+
+class Solution 
+{
+public:
+    void flatten(TreeNode* root) 
+    {
+        if(root==NULL)
+            return;
+        
+        stack<TreeNode*>st;
+        st.push(root);
+        while(!st.empty())
+        {
+            TreeNode *a=st.top();
+            st.pop();
+            if(a->right)
+            {
+                st.push(a->right);
+            }
+            if(a->left)
+            {
+                st.push(a->left);
+                a->right=a->left;
+            }
+            else
+            {
+                if(!st.empty())
+                {
+                    a->right=st.top();
+                }
+            }
+            a->left=NULL;
+        }
+    }
+};

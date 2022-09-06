@@ -1,3 +1,5 @@
+//We can change method to find LCS , and generate new method for this Q.
+
 //Find LCS of string and it's reverse if LCS==0 then we have to completely copy and paste string so answer will be n , othrwise delete all elements except LCS so n-LCS
 
 int longest(string &text1,string &text2,int x1,int x2,vector<vector<int>>&dp)
@@ -30,10 +32,6 @@ public:
         string a=s;
         reverse(s.begin(),s.end());
         vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
-        int c=longest(a,s,n-1,n-1,dp);
-        if(c!=0)
-            return s.length()-c;
-        else
-            return s.length();
+        return n-longest(a,s,n-1,n-1,dp);       
     }
 };

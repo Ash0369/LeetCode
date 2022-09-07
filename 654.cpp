@@ -70,3 +70,32 @@ public:
         return construct(nums,0,nums.size()-1);
     }
 };
+
+//Method-3 : Monotonic Stack
+
+class Solution 
+{
+public:
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) 
+    {
+        stack<TreeNode*>st;
+        for(auto x:nums)
+        {
+            TreeNode *curr=new TreeNode(x);
+            while(!st.empty() && st.top()->val<x)
+            {
+                curr->left=st.top();
+                st.pop();
+            }
+            if(!st.empty())
+            {
+                st.top()->right=curr;
+            }
+            st.push(curr);
+        }
+        while(st.size()!=1)
+            st.pop();
+        
+        return st.top();
+    }
+};

@@ -41,3 +41,56 @@ public:
         return true;
     }
 };
+
+
+//Method-2 : Space complexity reduced but Time Complexity increased
+
+void recover(TreeNode *root)
+{
+    if(root==NULL)
+        return;
+    
+    if(root->left)
+    {
+        root->left->val=(2*root->val)+1;
+    }
+        
+    if(root->right)
+    {
+        root->right->val=(2*root->val)+2;
+    }
+    recover(root->left);
+    recover(root->right);
+}
+
+class FindElements 
+{
+public:
+    TreeNode *head;
+    FindElements(TreeNode* root) 
+    {
+        root->val=0;
+        recover(root);
+        head=root;
+    }
+    
+    bool get(TreeNode *head,int target)
+    {
+        if(head==NULL)
+            return false;
+        
+        if(head->val==target)
+            return true;
+        
+        bool l=get(head->left,target);
+        bool r=get(head->right,target);
+        
+        return l|r;
+        
+    }
+    
+    bool find(int target) 
+    {
+        return get(head,target);
+    }
+};

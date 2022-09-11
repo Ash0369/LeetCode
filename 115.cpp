@@ -1,3 +1,6 @@
+//Mehod-1 : Memoization
+
+
 int distinct(int i,int j,string &s,string &t,vector<vector<int>>&dp)
 {
     if(j<0)

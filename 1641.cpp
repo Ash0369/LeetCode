@@ -69,3 +69,39 @@ public:
         return count(n,'z',dp);
     }
 };
+
+
+//Method-3 : Optimized Memoization
+
+int count(int n,int c,vector<vector<int>>&dp)
+{
+    if(n==0)
+    {
+        return 1;
+    }
+    if(dp[n][c]==-1)
+    {
+        int sum=0;
+        vector<char>vec= {'a','e','i','o','u'};
+        for(int j=0;j<5;j++)
+        {
+            if(j<=c)
+            {
+                sum=sum+count(n-1,j,dp);
+            }
+            else
+                break;
+        }
+        dp[n][c]=sum;
+    }
+    return dp[n][c];
+}
+class Solution 
+{
+public:
+    int countVowelStrings(int n) 
+    {
+        vector<vector<int>>dp(n+1,vector<int>(6,-1));
+        return count(n,4,dp);   
+    }
+};

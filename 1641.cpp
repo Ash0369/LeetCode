@@ -101,7 +101,79 @@ class Solution
 public:
     int countVowelStrings(int n) 
     {
-        vector<vector<int>>dp(n+1,vector<int>(6,-1));
+        vector<vector<int>>dp(n+1,vector<int>(5,-1));
         return count(n,4,dp);   
+    }
+};
+
+//Method-4 : Tabulation 
+
+class Solution 
+{
+public:
+    int countVowelStrings(int n) 
+    {
+        vector<vector<int>>dp(n+1,vector<int>(5,0));        
+        for(int c=0;c<5;c++)
+        {
+            dp[0][c]=1;
+        }
+        vector<char>vec= {'a','e','i','o','u'};
+        for(int i=1;i<=n;i++)
+        {
+            for(int c=0;c<5;c++)
+            {
+                int sum=0;
+                for(int j=0;j<5;j++)
+                {
+                    if(j<=c)
+                    {
+                        sum=sum+dp[i-1][j];
+                    }
+                    else
+                        break;
+                }
+                dp[i][c]=sum;
+            }
+        }
+        return dp[n][4];
+    }
+};
+
+
+//Method-5 : Space Optimization
+
+class Solution 
+{
+public:
+    int countVowelStrings(int n) 
+    {
+        vector<int>dp(5,0);
+        vector<int>prev(5,0);
+        for(int c=0;c<5;c++)
+        {
+            dp[c]=1;
+            prev[c]=1;
+        }
+        vector<char>vec= {'a','e','i','o','u'};
+        for(int i=1;i<=n;i++)
+        {
+            for(int c=0;c<5;c++)
+            {
+                int sum=0;
+                for(int j=0;j<5;j++)
+                {
+                    if(j<=c)
+                    {
+                        sum=sum+dp[j];
+                    }
+                    else
+                        break;
+                }
+                prev[c]=sum;
+            }
+            dp=prev;
+        }
+        return dp[4];
     }
 };

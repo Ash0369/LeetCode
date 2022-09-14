@@ -38,3 +38,36 @@ public:
         return decode(s,0,dp);
     }
 };
+
+
+//Method-2 : Tabulation
+
+class Solution 
+{
+public:
+    int numDecodings(string s) 
+    {
+        vector<int>dp(s.length()+1,-1);
+        dp[s.length()]=1;
+        
+        for(int index=s.length()-1;index>=0;index--)
+        {
+            int a=dp[index+1];
+            dp[index]=a;
+            if(s[index]=='0')
+            {
+                dp[index]=0;
+            }
+            else if(index+1<s.length())
+            {
+                
+                if(s[index]=='2' && s[index+1]<='6')
+                    dp[index]= a+dp[index+2];
+                else if(s[index]=='1')
+                    dp[index]= a+dp[index+2];
+            }
+            
+        }
+        return dp[0];
+    }
+};

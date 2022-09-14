@@ -1,3 +1,34 @@
+//Method-1 : Using Bit Manuplation
+
+int count(TreeNode *&root,int n)
+{
+    if(root==NULL)
+        return 0;
+    
+    
+    int a=1<<root->val;//we get bit on at that number
+    n=n^a; //Take xor if bit is already on so even count so turned off else turnd on.
+    if(root->left==NULL && root->right==NULL)
+    {
+        if(__builtin_popcount(n)<=1)
+            return true;
+        
+        return false;
+    }   
+    return count(root->left,n)+count(root->right,n);  
+}
+class Solution 
+{
+public:
+    int pseudoPalindromicPaths (TreeNode* root) 
+    {
+        return count(root,0);
+    }
+};
+
+
+//Method-2 : High Time and Space Time Complexity
+
 bool check_parity(vector<int>&num)
 {
     int count=0;

@@ -43,3 +43,62 @@ public:
         return match(s,p,m-1,n-1,dp);
     }
 };
+
+//Method-2 : Tabulation 
+
+class Solution 
+{
+public:
+    bool isMatch(string s, string p) 
+    {
+        int m=s.length();
+        int n=p.length();
+        vector<vector<bool>>dp(m+1,vector<bool>(n+1,true));
+        
+        //1st base case
+        dp[0][0]=true;
+        
+        //2nd base case
+        for(int i=1;i<=m;i++)
+            dp[i][0]=false;
+        
+        //3rd base case
+        
+        for(int j=1;j<=n;j++)
+        {
+            bool flag=true;
+            for(int index=j;index>0;index--)
+            {
+                if(p[index-1]!='*')
+                {
+                    flag=false;
+                    break;
+                }
+                    
+            }
+            dp[0][j]=flag;
+        }
+        
+        //Changing parameters
+        
+        for(int i=1;i<=m;i++)
+        {
+            for(int j=1;j<=n;j++)
+            {
+                if(s[i-1]==p[j-1] || p[j-1]=='?')
+                {
+                    dp[i][j]=dp[i-1][j-1];
+                }
+                else if(p[j-1]=='*')
+                {
+                    dp[i][j]= dp[i][j-1] | dp[i-1][j]; 
+                }
+                else
+                {
+                    dp[i][j]=false;
+                }
+            }
+        }
+        return dp[m][n];
+    }
+};

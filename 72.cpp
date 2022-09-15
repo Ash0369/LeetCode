@@ -75,3 +75,45 @@ public:
         return dp[m][n];
     }
 };
+
+
+//Method-3 : Space Optimization
+
+class Solution 
+{
+public:
+    int minDistance(string word1, string word2) 
+    {
+        int m=word1.size();
+        int n=word2.size();
+        vector<int>dp(n+1,0);
+        vector<int>prev(n+1,0);
+        for(int j=0;j<=n;j++)
+        {
+            dp[j]=j;
+            prev[j]=j;
+        }        
+        for(int i=1;i<=m;i++)
+        {
+            prev[0]=i;//Due to another base case
+            for(int j=1;j<=n;j++)
+            {
+                //Copy the recurance 
+                
+                if(word1[i-1]==word2[j-1])
+                {
+                    prev[j]=dp[j-1];
+                }
+                else
+                {
+                    int delete_op=1+dp[j];
+                    int insert_op=1+prev[j-1];
+                    int replace_op=1+dp[j-1];
+                    prev[j]=min(delete_op,min(insert_op,replace_op));
+                }  
+            }
+            dp=prev;
+        }
+        return dp[n];
+    }
+};

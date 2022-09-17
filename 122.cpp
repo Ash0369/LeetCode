@@ -2,10 +2,8 @@
 
 int maxp(vector<int>&prices,int index,int status,vector<vector<int>>&dp)
 {
-    if(index==prices.size()-1)
+    if(index==prices.size())
     {
-        if(status==1)
-            return prices[index];
         return 0;
     }
     if(dp[index][status]==-1)
@@ -35,5 +33,41 @@ public:
         int n=prices.size();
         vector<vector<int>>dp(n+1,vector<int>(2,-1));
         return maxp(prices,0,0,dp);
+    }
+};
+
+//Method-2 :
+
+class Solution 
+{
+public:
+    int maxProfit(vector<int>& prices) 
+    {
+        int n=prices.size();
+        vector<vector<int>>dp(n+1,vector<int>(2,0));
+        
+        dp[n][1]=0;
+        dp[n][0]=0;
+        
+        for(int index=n-1;index>=0;index--)
+        {
+            for(int status=0;status<=1;status++)
+            {
+                int a=0;
+                int b=0;
+                if(status==0)
+                {
+                    a=-1*prices[index]+dp[index+1][1];
+                }
+                else if(status==1)
+                {
+                    a=prices[index]+dp[index+1][0];
+                }
+                b=dp[index+1][status];
+                dp[index][status]=max(a,b);
+            }
+        }
+         return dp[0][0];
+        
     }
 };

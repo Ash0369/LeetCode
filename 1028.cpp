@@ -1,5 +1,7 @@
 //Method -1 : 1st Hard Q of Leet Code which i solved on my own without any help by purely my method :) 
 
+//Montonic Stack
+
 class Solution 
 {
 public:
@@ -54,5 +56,42 @@ public:
             }
         }
         return root;
+    }
+};
+
+
+//Method-2 : Recursion 
+
+TreeNode *construct(string &traversal,int depth,int &intial)
+{
+    if(depth>traversal.length())
+        return NULL;
+    
+    for(int i=intial;i<intial+depth;i++)
+    {
+        if(traversal[i]!='-')
+            return NULL;
+    }
+    int start=intial+depth;
+    string temp="";
+    while(start<traversal.length() && traversal[start]!='-')
+    {
+        temp=temp+traversal[start];
+        start++;
+    }
+    TreeNode *node=new TreeNode(stoi(temp));
+    intial=start;
+    node->left=construct(traversal,depth+1,intial);
+    node->right=construct(traversal,depth+1,intial);
+    
+    return node;
+}
+class Solution 
+{
+public:
+    TreeNode* recoverFromPreorder(string traversal) 
+    {
+        int intial=0;
+        return construct(traversal,0,intial);
     }
 };

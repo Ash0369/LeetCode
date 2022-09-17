@@ -125,3 +125,59 @@ public:
         return profit(prices,0,0,2,dp);
     }
 };
+
+//Method-4 : Tabuation
+
+class Solution 
+{
+public:
+    int maxProfit(vector<int>& prices) 
+    {
+        res=0;
+        int n=prices.size();
+        vector<vector<vector<int>>>dp(n+1,vector<vector<int>>(2,vector<int>(3,0)));
+        
+        //Already intial element are 0 and base case output is also 0 , so we can remove it to save time , but it give us idea which loop will rum from where to where.
+        //Converting 1st base case
+        // for(int i=0;i<2;i++)
+        // {
+        //     for(int j=0;j<3;j++)
+        //     {
+        //         dp[n][i][j]=0;
+        //     }
+        // }
+        
+        //Converting 2nd base case
+        
+        // for(int i=0;i<=n;i++)
+        // {
+        //     for(int j=0;j<2;j++)
+        //     {
+        //         dp[i][j][0]=0;
+        //     }
+        // }
+        
+        for(int i=n-1;i>=0;i--)
+        {
+            for(int j=1;j>=0;j--)
+            {
+                for(int k=2;k>0;k--)
+                {
+                    int pr=0;
+                    if(j==0)
+                    {
+                        pr=dp[i+1][1][k]-prices[i];
+                    }
+                    else if(j==1)
+                    {
+                        pr=dp[i+1][0][k-1]+prices[i];     
+                    }
+                    int npr=dp[i+1][j][k];    
+                    dp[i][j][k]=max(pr,npr);
+                }
+            }
+        }
+        
+        return dp[0][0][2];    
+    }
+};

@@ -1,4 +1,4 @@
-//Method-1 : 
+//Method-1 : Memoization
 
 int maxp(vector<int>&prices,int index,int status,vector<vector<int>>&dp)
 {
@@ -36,7 +36,7 @@ public:
     }
 };
 
-//Method-2 :
+//Method-2 : Tabulation
 
 class Solution 
 {
@@ -69,5 +69,43 @@ public:
         }
          return dp[0][0];
         
+    }
+};
+
+
+//Method-3 : Space Optimization
+
+class Solution 
+{
+public:
+    int maxProfit(vector<int>& prices) 
+    {
+        int n=prices.size();
+        vector<int>curr(2,0);
+        vector<int>dp(2,0);
+        
+        dp[1]=0;
+        dp[0]=0;
+        
+        for(int index=n-1;index>=0;index--)
+        {
+            for(int status=0;status<=1;status++)
+            {
+                int a=0;
+                int b=0;
+                if(status==0)
+                {
+                    a=-1*prices[index]+dp[1];
+                }
+                else if(status==1)
+                {
+                    a=prices[index]+dp[0];
+                }
+                b=dp[status];
+                curr[status]=max(a,b);
+            }
+            dp=curr;
+        }
+         return dp[0];
     }
 };

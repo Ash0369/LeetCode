@@ -219,3 +219,42 @@ public:
         return dp[0][2];  
     }
 };
+
+
+//Method-6 : (B S B S so buy at even and sell at odd transaction)
+
+int res=0;
+int profit(vector<int>&prices,int index,int transaction,vector<vector<int>>&dp)
+{
+    int pr=0;
+    if(index==prices.size() || transaction==4)
+        return 0;
+    
+    if(dp[index][transaction]==-1)
+    {
+        if(transaction%2==0)
+        {
+            pr=profit(prices,index+1,transaction+1,dp)-prices[index];
+        }
+        else if(transaction%2==1)
+        {
+            pr=profit(prices,index+1,transaction+1,dp)+prices[index];
+        }
+        int npr=0;    
+        npr=profit(prices,index+1,transaction,dp);   
+        dp[index][transaction]=max(pr,npr);
+    }
+    return dp[index][transaction];
+}
+class Solution 
+{
+public:
+    int maxProfit(vector<int>& prices) 
+    {
+        res=0;
+        int n=prices.size();     
+        vector<vector<int>>dp(n,vector<int>(5,-1));
+        return profit(prices,0,0,dp);
+        //Transaction will be : B S B S , so buy at even transaction and sell at odd.
+    }
+};

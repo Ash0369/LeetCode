@@ -69,3 +69,40 @@ public:
         return dp[0][0];
     }
 };
+
+
+//Method-3 : Space Optimization
+
+class Solution 
+{
+public:
+    int maxProfit(int k, vector<int>& prices) 
+    {
+        //B S B S...
+        int n=prices.size();
+        k=2*k;
+        vector<int>dp(k+1,0);
+        vector<int>curr(k+1,0);
+        for(int index=n-1;index>=0;index--)
+        {
+            for(int transaction=k-1;transaction>=0;transaction--)
+            {
+                
+                int p=0;
+                if(transaction%2==0)
+                {
+                    p=dp[transaction+1]-prices[index];
+                }
+                else
+                {
+                    p=dp[transaction+1]+prices[index];
+                }
+                
+                int nt=dp[transaction];
+                curr[transaction]=max(p,nt);
+            }
+            dp=curr;
+        }
+        return dp[0];
+    }
+};

@@ -33,3 +33,39 @@ public:
         return sell(k,prices,0,0,dp);
     }
 };
+
+
+//Method-2 : Tabulation
+
+class Solution 
+{
+public:
+    int maxProfit(int k, vector<int>& prices) 
+    {
+        //B S B S...
+        int n=prices.size();
+        k=2*k;
+        vector<vector<int>>dp(n+1,vector<int>(k+1,0));
+        for(int index=n-1;index>=0;index--)
+        {
+            for(int transaction=k-1;transaction>=0;transaction--)
+            {
+                
+                int p=0;
+                if(transaction%2==0)
+                {
+                    p=dp[index+1][transaction+1]-prices[index];
+                }
+                else
+                {
+                    p=dp[index+1][transaction+1]+prices[index];
+                }
+                
+                int nt=dp[index+1][transaction];
+                dp[index][transaction]=max(p,nt);
+            }
+        }
+        
+        return dp[0][0];
+    }
+};

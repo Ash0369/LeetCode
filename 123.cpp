@@ -133,7 +133,7 @@ class Solution
 public:
     int maxProfit(vector<int>& prices) 
     {
-        res=0;
+        int res=0;
         int n=prices.size();
         vector<vector<vector<int>>>dp(n+1,vector<vector<int>>(2,vector<int>(3,0)));
         
@@ -190,7 +190,7 @@ class Solution
 public:
     int maxProfit(vector<int>& prices) 
     {
-        res=0;
+        int res=0;
         int n=prices.size();     
         vector<vector<int>>dp(2,vector<int>(3,0));
         vector<vector<int>>curr(2,vector<int>(3,0));
@@ -256,5 +256,75 @@ public:
         vector<vector<int>>dp(n,vector<int>(5,-1));
         return profit(prices,0,0,dp);
         //Transaction will be : B S B S , so buy at even transaction and sell at odd.
+    }
+};
+
+
+//Method-7 : 
+//Doing Method-6 in tabulation way
+
+class Solution 
+{
+public:
+    int maxProfit(vector<int>& prices) 
+    {
+        int res=0;
+        int n=prices.size();     
+        vector<vector<int>>dp(n+1,vector<int>(5,0));
+        for(int index=n-1;index>=0;index--)
+        {
+            for(int transaction=3;transaction>=0;transaction--)
+            {
+                int pr=0;
+                if(transaction%2==0)
+                {
+                    pr=dp[index+1][transaction+1]-prices[index];
+                }
+                else if(transaction%2==1)
+                {
+                    pr=dp[index+1][transaction+1]+prices[index];
+                }
+                int npr=0;    
+                npr=dp[index+1][transaction];   
+                dp[index][transaction]=max(pr,npr);
+            }
+        }
+        return dp[0][0];
+    }
+};
+
+//Method-8 : 
+
+//Space Optimizing Method-7
+
+class Solution 
+{
+public:
+    int maxProfit(vector<int>& prices) 
+    {
+        int res=0;
+        int n=prices.size();     
+        vector<int>dp(5,0);
+        vector<int>curr(5,0);
+        for(int index=n-1;index>=0;index--)
+        {
+            for(int transaction=3;transaction>=0;transaction--)
+            {
+                int pr=0;
+                if(transaction%2==0)
+                {
+                    pr=dp[transaction+1]-prices[index];
+                }
+                else if(transaction%2==1)
+                {
+                    pr=dp[transaction+1]+prices[index];
+                }
+                int npr=0;    
+                npr=dp[transaction];   
+                curr[transaction]=max(pr,npr);
+            }
+            dp=curr;
+        }
+        return dp[0];
     }
 };

@@ -1,4 +1,4 @@
-//Method-1 : 
+//Method-1 : Memoization
 
 
 int mprofit(vector<int>&profit,int index,int transaction,vector<vector<int>>&dp)
@@ -39,7 +39,7 @@ public:
 };
 
 
-//Method-2 : 
+//Method-2 : Tabulation
 
 
 class Solution 
@@ -77,7 +77,7 @@ public:
 };
 
 
-//Method-3 : 
+//Method-3 : Space Optimization
 
 class Solution 
 {
@@ -114,3 +114,69 @@ public:
         return dp[0];
     }
 };
+
+
+//Method-4 : Optimized Memoization
+
+int mprofit(vector<int>&profit,int index,int transaction,vector<vector<int>>&dp)
+{
+    int p=0;
+    if(index>=profit.size())
+        return 0;
+    if(dp[index][transaction]==-1)
+    {
+        if(transaction%2==0)
+        {
+            p=mprofit(profit,index+1,transaction+1,dp)-profit[index];
+        }
+        else
+        {
+            p=mprofit(profit,index+2,transaction+1,dp)+profit[index];
+        }
+        int np=mprofit(profit,index+1,transaction,dp);
+        dp[index][transaction]=max(p,np);
+    }
+    return dp[index][transaction];
+}
+class Solution 
+{
+public:
+    int maxProfit(vector<int>& prices) 
+    {
+        int n=prices.size();
+        vector<vector<int>>dp(n+1,vector<int>(n,-1));
+        return mprofit(prices,0,0,dp);
+    }
+};
+
+//Method-5 : Optimized Tabulation
+
+class Solution 
+{
+public:
+    int maxProfit(vector<int>& prices) 
+    {
+        int n=prices.size();
+        vector<vector<int>>dp(n+2,vector<int>(n+1,0));
+        int p=0;
+        for(int index=n-1;index>=0;index--)
+        {
+            for(int transaction=n-1;transaction>=0;transaction--)
+            {
+                if(transaction%2==0)
+                {
+                    p=dp[index+1][transaction+1]-prices[index];
+                }
+                else
+                {
+                    p=dp[index+2][transaction+1]+prices[index];
+                }
+                int np=dp[index+1][transaction];
+                
+                dp[index][transaction]=max(p,np);
+            }
+        }
+        return dp[0][0];
+    }
+};
+

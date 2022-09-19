@@ -75,3 +75,42 @@ public:
         return dp[0][0];
     }
 };
+
+
+//Method-3 : 
+
+class Solution 
+{
+public:
+    int maxProfit(vector<int>& prices) 
+    {
+        int n=prices.size();
+        vector<int>dp(n+1,0);
+        vector<int>curr(n+1,0);
+        int p=0;
+        for(int index=n-1;index>=0;index--)
+        {
+            for(int transaction=n-1;transaction>=0;transaction--)
+            {
+                if(transaction%3==0)
+                {
+                    p=dp[transaction+1]-prices[index];
+                }
+                else if(transaction>0 && (transaction-1)%3==0)
+                {
+                    p=dp[transaction+1]+prices[index];
+                }
+                else
+                {
+                    curr[transaction]=dp[transaction+1];
+                    continue;
+                }
+                int np=dp[transaction];
+                
+                curr[transaction]=max(p,np);
+            }
+            dp=curr;
+        }
+        return dp[0];
+    }
+};

@@ -1,12 +1,11 @@
 int ans=1;
-int check(TreeNode *root,int &max_value)
+int check(TreeNode *&root)
 {
     if(root==NULL)
         return 0;
     
-    int l=check(root->left,max_value);
-    int r=check(root->right,max_value);
-    max_value=max(max_value,max(l,r));
+    int l=check(root->left);
+    int r=check(root->right);
     if(l>=1 && r>=1)
     {
         if(root->val==root->left->val && root->val==root->right->val)
@@ -26,9 +25,7 @@ int check(TreeNode *root,int &max_value)
         ans=max(ans,r+1);
         return r+1;
     }
-
-    return 1;
-        
+    return 1; 
 }
 class Solution 
 {
@@ -37,8 +34,7 @@ public:
     {
         if(root==NULL)
             return 0;
-        int max_value=0;
         ans=1;
-        return max(ans,check(root,max_value))-1;
+        return max(ans,check(root))-1;
     }
 };

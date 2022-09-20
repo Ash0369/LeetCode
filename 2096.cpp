@@ -1,3 +1,5 @@
+//Method-1 : 
+
 TreeNode* lca(TreeNode *root,int &start,int &end)
 {
     if(root==NULL)
@@ -50,5 +52,44 @@ public:
         
         return res;
 
+    }
+};
+
+
+//Method-2 : 
+
+bool reach(TreeNode *root,int &value,string &s)
+{
+    if(root==NULL)
+        return false;
+    if(root->val==value)
+        return true;
+    bool a=reach(root->left,value,s);
+    bool b=reach(root->right,value,s);
+    
+    if(a)
+        s.push_back('L');
+    if(b)
+        s.push_back('R');
+    
+    return a|b;
+}
+class Solution 
+{
+public:
+    string getDirections(TreeNode* root, int startValue, int destValue) 
+    {
+        //TreeNode *ancestor=lca(root,startValue,destValue);
+        string start,end;
+        reach(root,startValue,start);
+        reach(root,destValue,end);
+        
+        while(!start.empty() && !end.empty() && start.back()==end.back())
+        {
+            start.pop_back();
+            end.pop_back();
+        }
+        reverse(end.begin(),end.end());
+        return string(start.size(),'U')+end;
     }
 };

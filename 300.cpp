@@ -1,3 +1,6 @@
+//Method-1,2,3 will only work if size of array is samll ,for larger size arrray we have to go with binary search
+
+
 //Method-1 : Memoization
 
 int longest(vector<int>&nums,int index,int prev,vector<vector<int>>&dp)
@@ -54,5 +57,36 @@ public:
             }
         }
         return dp[0][0];
+    }
+};
+
+
+//Method-3 : Space Optimization
+
+class Solution 
+{
+public:
+    int lengthOfLIS(vector<int>& nums) 
+    {
+        int n=nums.size();
+        vector<int>dp(n+1,0);
+        vector<int>curr(n+1,0);
+        for(int index=n-1;index>=0;index--)
+        {
+            for(int prev=index-1;prev>=-1;prev--)
+            {
+                int pick=0;
+                if(prev==-1 || nums[index]>nums[prev])
+                    pick=1+dp[index+1];
+                
+                
+                int not_pick=dp[prev+1];
+                
+                curr[prev+1]=max(pick,not_pick);
+            }
+            dp=curr;
+        }
+        
+        return dp[0];
     }
 };

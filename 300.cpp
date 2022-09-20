@@ -90,3 +90,32 @@ public:
         return dp[0];
     }
 };
+
+
+//Method-4 : Optimized Tabuation, by different method
+//This method is required when we want to trace back LIS or from dp array we want to generate LIS
+
+
+class Solution 
+{
+public:
+    int lengthOfLIS(vector<int>& nums) 
+    {
+        int n=nums.size();
+        vector<int>dp(n+1,1); //dp[i] signify length of longest increasing subsequence which end at i
+        int ans=INT_MIN;
+        for(int i=0;i<n;i++)
+        {
+            for(int prev=0;prev<i;prev++)
+            {
+                if(nums[prev]<nums[i])
+                {
+                    dp[i]=max(dp[i],1+dp[prev]);
+                }
+            }
+            ans=max(ans,dp[i]);
+        }
+        
+        return ans;    
+    }
+};

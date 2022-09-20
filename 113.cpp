@@ -1,5 +1,5 @@
 vector<vector<int>>result;
-void path(TreeNode *root,int target,vector<int>vec,int sum)
+void path(TreeNode *root,int target,vector<int>&vec,int sum)
 {
     if(root==NULL)
         return;

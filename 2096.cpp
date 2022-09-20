@@ -64,8 +64,10 @@ bool reach(TreeNode *root,int &value,string &s)
         return false;
     if(root->val==value)
         return true;
+    bool b=false;
     bool a=reach(root->left,value,s);
-    bool b=reach(root->right,value,s);
+    if(!a)
+        b=reach(root->right,value,s);
     
     if(a)
         s.push_back('L');

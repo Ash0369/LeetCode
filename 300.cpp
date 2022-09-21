@@ -119,3 +119,56 @@ public:
         return ans;    
     }
 };
+
+
+//Method-5 : 
+
+//We can print Lis from dp array generated in Method-4 , this is not part of Q but will important for other Q
+
+
+//lis vector contain the final answer.
+class Solution 
+{
+public:
+    int lengthOfLIS(vector<int>& nums) 
+    {
+        int n=nums.size();
+        vector<int>dp(n+1,1); 
+        vector<int>hash(n+1);
+        int ans=INT_MIN;
+        
+        int last_index=0;
+        for(int i=0;i<n;i++)
+        {
+            hash[i]=i;
+            for(int prev=0;prev<i;prev++)
+            {
+                if(nums[prev]<nums[i])
+                {
+                    if(dp[i]<= 1+dp[prev])
+                    {
+                        dp[i]=max(dp[i],1+dp[prev]);
+                        hash[i]=prev;
+                    }
+                }
+            }
+            if(dp[i]>ans)
+            {
+                ans=max(ans,dp[i]);
+                last_index=i;
+            }
+            
+        }
+        vector<int>lis;
+        while(hash[last_index]!=last_index)
+        {
+            lis.push_back(hash[last_index]);
+            last_index=hash[last_index];
+        }
+        reverse(lis.begin(),lis.end());
+        for(auto x:lis)
+            cout<<x<<endl;
+        return ans;
+        
+    }
+};

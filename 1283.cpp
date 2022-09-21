@@ -35,7 +35,7 @@ public:
             
             if(smallest(nums,mid,threshold))
             {
-                res=min(res,mid);
+                res=mid;
                 high=mid-1;
             }
             else
@@ -43,7 +43,6 @@ public:
                 low=mid+1;
             }
         }
-        
         return res;
     }
 };

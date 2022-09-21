@@ -172,3 +172,28 @@ public:
         
     }
 };
+
+
+//Method-6 : Binary Search
+
+class Solution 
+{
+public:
+    int lengthOfLIS(vector<int>& nums) 
+    {
+        int n=nums.size();
+        vector<int>bs;
+        for(int i=0;i<n;i++)
+        {
+            int up=lower_bound(bs.begin(),bs.end(),nums[i])-bs.begin();
+            if(up==bs.size())
+            {
+                bs.push_back(nums[i]);
+            }
+            else
+                bs[up]=nums[i];
+        }
+        return bs.size();
+        
+    }
+};

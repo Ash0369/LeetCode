@@ -1,3 +1,5 @@
+//Method-1 : 
+
 int mod=1e9+7;
 int helper(int n,int k,int target,vector<vector<int>>&dp)
 {
@@ -27,3 +29,36 @@ public:
         return helper(n,k,target,dp);
     }
 };
+
+
+//Method-2 : 
+
+class Solution 
+{
+public:
+    int numRollsToTarget(int n, int k, int target) 
+    {
+        vector<vector<int>>dp(n+1,vector<int>(target+1,0));
+        
+        for(int i=1;i<=k && i<=target;i++)
+        {
+            dp[1][i]=1;
+        }
+        
+        for(int i=2;i<=n;i++)
+        {
+            for(int j=0;j<=target;j++)
+            {
+                int res=0;
+                for(int a=1;a<=k & j-a>=0;a++)
+                {
+                    res=(res+dp[i-1][j-a])%mod;
+                }
+                dp[i][j]=res;
+            }
+        }
+        
+        return dp[n][target];
+    }
+};
+

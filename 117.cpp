@@ -1,3 +1,5 @@
+//Method-1 : 
+
 class Solution 
 {
 public:
@@ -29,6 +31,44 @@ public:
                 if(temp->right)
                     st.push(temp->right);
             }
+        }
+        
+        return root;
+    }
+};
+
+
+//Method-2 : 
+
+
+class Solution 
+{
+public:
+    Node* connect(Node* root) 
+    {
+        if(root==NULL)
+            return root;
+        Node *head=root;
+        while(head!=NULL)
+        {
+            Node *temp=head;
+            Node *ptr=new Node(-1);
+            Node *dummy=ptr;
+            while(head!=NULL)
+            {
+                if(head->left)
+                {
+                    ptr->next=head->left;
+                    ptr=head->left;
+                }
+                if(head->right)
+                {
+                    ptr->next=head->right;
+                    ptr=head->right;
+                }
+                head=head->next;
+            }
+            head=dummy->next;
         }
         
         return root;

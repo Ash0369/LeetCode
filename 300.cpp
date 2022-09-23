@@ -160,10 +160,11 @@ public:
             
         }
         vector<int>lis;
+        lis.push_back(nums[last_index]);
         while(hash[last_index]!=last_index)
         {
-            lis.push_back(hash[last_index]);
             last_index=hash[last_index];
+            lis.push_back(nums[last_index]);
         }
         reverse(lis.begin(),lis.end());
         for(auto x:lis)

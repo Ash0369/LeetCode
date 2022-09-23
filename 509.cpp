@@ -99,3 +99,69 @@ public:
         return b;
     }
 };
+
+
+//Method-5 : Binary exponentaion for very large values of n :
+
+
+vector<vector<int>> mul(vector<vector<int>>matrix1,vector<vector<int>>matrix2)
+{
+    int x=matrix1[0].size();
+    int y=matrix2.size();
+    vector<vector<int>>ans;
+    for(int i=0;i<matrix1.size();i++)
+    {
+        vector<int>temp;
+        for(int j=0;j<x;j++)
+        {
+            int sum=0;
+            for(int k=0;k<y;k++)
+            {
+                sum=sum+matrix1[i][k]*matrix2[j][k];
+            }
+            temp.push_back(sum);
+        }
+        ans.push_back(temp);
+    }
+    return ans;
+}
+vector<vector<int>> matrix_exponentation(vector<vector<int>>matrix , int n)
+{
+    if(n==0)
+    {
+        for(int i=0;i<matrix.size();i++)
+        {
+            for(int j=0;j<matrix[i].size();j++)
+            {
+                matrix[i][j]=1;
+            }
+        }
+    }
+    
+    if(n==1)
+        return matrix;
+     
+    auto a=matrix_exponentation(matrix,n/2);
+    auto x=mul(a,a);
+
+    if(n%2==0)
+    {
+        return x;
+    }
+    return mul(x,matrix);
+}
+
+class Solution 
+{
+public:
+    int fib(int n) 
+    {
+        if(n==0)
+            return 0;
+        vector<vector<int>>vec;
+        vec={{1,1},{1,0}};
+        
+        auto ans=matrix_exponentation(vec,n);
+        return ans[1][0];
+    }
+};

@@ -1,35 +1,13 @@
 bool safe(vector<string>&board,int row,int column,int n)
 {
-    for(int i=0;i<n;i++)
+    //Other then this 3 direction Queen cannot be placed in remaing because that are later moves.
+    for(int i=0;i<column;i++)
     {
         if(board[row][i]=='Q')
-            return false;
-        if(board[i][column]=='Q')
             return false;
     }
     int i=row;
     int j=column;
-    
-    while(j<n && i>=0)
-    {
-        if(board[i][j]=='Q')
-            return false;
-        i--;
-        j++;  
-    }
-    i=row;
-    j=column;
-    
-    while(j<n && i<n)
-    {
-        if(board[i][j]=='Q')
-            return false;
-        i++;
-        j++;  
-    }
-    
-    i=row;
-    j=column;
     
     while(j>=0 && i>=0)
     {

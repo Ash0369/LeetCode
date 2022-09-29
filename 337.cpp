@@ -68,3 +68,37 @@ public:
         return cash(root,0,mp);
     }
 };
+
+
+//Method-3 : 
+
+int cash(TreeNode *root,map<TreeNode*,int>&mp)
+{
+    if(root==NULL)
+        return 0;
+
+    if(mp.find(root)==mp.end())
+    {
+        int ans_include=root->val;
+        if(root->left)
+            ans_include+=cash(root->left->left,mp)+cash(root->left->right,mp);
+        
+        if(root->right)
+            ans_include+=cash(root->right->left,mp)+cash(root->right->right,mp);
+        
+        int ans_not_include=cash(root->left,mp)+cash(root->right,mp);
+        
+        mp[root]=max(ans_include,ans_not_include);
+    }
+    return mp[root];
+}
+
+class Solution 
+{
+public:
+    int rob(TreeNode* root) 
+    {
+        map<TreeNode*,int>mp;
+        return cash(root,mp);
+    }
+};

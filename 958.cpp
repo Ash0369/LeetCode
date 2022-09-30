@@ -1,3 +1,5 @@
+//Method-1 : 
+
 class Solution 
 {
 public:
@@ -28,5 +30,34 @@ public:
             }
         }
         return true;
+    }
+};
+
+
+//Method-2 : 
+
+int nodes(TreeNode *root)
+{
+    if(root==NULL)
+        return 0;
+    return 1+nodes(root->left)+nodes(root->right);
+}
+
+bool check(TreeNode *root,int count,int index)
+{
+    if(root==NULL)
+        return true;
+    if(index>=count)
+        return false;
+    
+    return check(root->left,count,2*index+1)&check(root->right,count,2*index+2);
+}
+class Solution 
+{
+public:
+    bool isCompleteTree(TreeNode* root) 
+    {
+        int count=nodes(root);
+        return check(root,count,0);
     }
 };

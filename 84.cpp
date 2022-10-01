@@ -1,3 +1,5 @@
+//Method-1 : 
+
 class Solution 
 {
 public:
@@ -36,6 +38,37 @@ public:
         {
             int area=(right[i]-left[i]+1)*heights[i];
             max_area=max(max_area,area);
+        }
+        return max_area;
+    }
+};
+
+
+//Method-2 : 
+
+
+class Solution 
+{
+public:
+    int largestRectangleArea(vector<int>& heights) 
+    {
+        int n=heights.size();
+        int max_area=0;
+        stack<int>st;
+        for(int i=0;i<=n;i++)
+        {
+            while(!st.empty() && (i==n || heights[st.top()]>=heights[i]))
+            {
+                int r=i;
+                int h=heights[st.top()];
+                st.pop();
+                int l=-1;
+                if(!st.empty())
+                    l=st.top();
+                int area=(r-l-1)*h;
+                max_area=max(max_area,area);
+            }
+            st.push(i);
         }
         return max_area;
     }

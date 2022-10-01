@@ -43,3 +43,44 @@ public:
         return cut(s,0,dp)-1; //As we done a partion at end also
     }
 };
+
+
+//Method-2 : 
+
+bool palindrome(int start,int end,string &s)
+{
+    while(start<end)
+    {
+        if(s[start]!=s[end])
+            return false;
+        
+        start++;
+        end--;
+    }
+    return true;
+}
+class Solution 
+{
+public:
+    int minCut(string s) 
+    {
+        vector<int>dp(s.length()+1,0);
+        
+        int n=s.length();
+        for(int index=n-1;index>=0;index--)
+        {
+            int ans=INT_MAX;
+            int count=0;
+            for(int i=index;i<s.length();i++)
+            {
+                if(palindrome(index,i,s))
+                {
+                    count=1+dp[i+1];
+                    ans=min(count,ans);
+                }
+            }
+            dp[index]=ans;
+        }
+        return dp[0]-1; //As we done a partion at end also
+    }
+};

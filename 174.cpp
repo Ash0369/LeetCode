@@ -42,3 +42,30 @@ public:
       
     }
 };
+
+
+//Merthod-2 : 
+
+
+class Solution 
+{
+public:
+    int calculateMinimumHP(vector<vector<int>>& dungeon) 
+    {
+        int m=dungeon.size();
+        int n=dungeon[0].size();
+        vector<vector<int>>dp(m+1,vector<int>(n+1,INT_MAX));
+        dp[m][n-1]=1;
+        dp[m-1][n]=1;  
+        for(int x=m-1;x>=0;x--)
+        {
+            for(int y=n-1;y>=0;y--)
+            {
+                int left=dp[x+1][y];
+                int up=dp[x][y+1];
+                dp[x][y]=max(1,min(left,up)-dungeon[x][y]);
+            }
+        }
+        return dp[0][0];
+    }
+};

@@ -1,3 +1,5 @@
+//Method-1 : 
+
 int max_ans=0;
 int longest(TreeNode *root,char drxn)
 {
@@ -37,6 +39,34 @@ public:
     {
         max_ans=0;
         longest(root,'A');
+        return max_ans;
+    }
+};
+
+
+//Method-2 : 
+
+int max_ans=0;
+void longest(TreeNode *root,int l,int r)
+{
+    if(root==NULL)
+        return;
+    max_ans=max(max_ans,l);
+    max_ans=max(max_ans,r);
+    
+    longest(root->left,0,l+1);
+    longest(root->right,r+1,0);
+    
+}
+class Solution 
+{
+public:
+    int longestZigZag(TreeNode* root) 
+    {
+        max_ans=0;
+        int l=0;
+        int r=0;
+        longest(root,l,r);
         return max_ans;
     }
 };

@@ -70,3 +70,54 @@ public:
         return max_ans;
     }
 };
+
+
+//Method-3 : By DP
+
+int max_ans=0;
+int longest(TreeNode *root,char drxn, map<pair<TreeNode*,char>,int>&mp)
+{
+    if(root==NULL)
+        return 0;
+    if(mp.find(make_pair(root,drxn))==mp.end())
+    {
+        if(drxn=='A')
+        {
+            int a=longest(root->left,'L',mp);
+            int b=longest(root->right,'R',mp);
+            
+            max_ans=max(max_ans,max(a,b));
+            return mp[make_pair(root,drxn)]=max(a,b);
+        }
+        else if(drxn=='L')
+        {
+            int p=longest(root->right,'R',mp);
+            int a=longest(root->left,'L',mp);
+            int ans=p+1;
+            max_ans=max(ans,max_ans);
+            max_ans=max(max_ans,a);
+            return mp[make_pair(root,drxn)]=ans;
+        }
+       
+        int p=longest(root->left,'L',mp);
+        int a=longest(root->right,'R',mp);
+        
+        int ans=p+1;
+        max_ans=max(ans,max_ans);
+        max_ans=max(max_ans,a);
+        return mp[make_pair(root,drxn)]=ans;
+    }
+    return mp[make_pair(root,drxn)];
+    
+}
+class Solution 
+{
+public:
+    int longestZigZag(TreeNode* root) 
+    {
+        max_ans=0;
+        map<pair<TreeNode*,char>,int>mp;
+        longest(root,'A',mp);
+        return max_ans;
+    }
+};

@@ -72,3 +72,61 @@ public:
         return ans;
     }
 };
+
+
+//Method-3 : Optimized Way
+
+
+class Solution 
+{
+public:
+    int depth(TreeNode *root)
+    {
+        if(root==NULL)
+            return 0;
+        return 1+max(depth(root->left),depth(root->right));
+    }
+    vector<vector<int>> levelOrderBottom(TreeNode* root) 
+    {
+        if(root==NULL)
+            return {};
+        
+        int d=depth(root);
+        vector<vector<int>>ans(d,vector<int>({}));
+        int i=0;
+        
+        queue<TreeNode*>st;
+        st.push(root);
+        ans[d-1].push_back(root->val);
+        st.push(NULL);
+        d--;
+        
+        while(!st.empty())
+        {
+            TreeNode *t=st.front();
+            st.pop();
+            if(t)
+            {
+                 if(t->left)
+                 {
+                     ans[d-1].push_back(t->left->val);
+                     st.push(t->left);
+                 }
+                     
+                 if(t->right)
+                 {
+                     st.push(t->right);
+                     ans[d-1].push_back(t->right->val);
+                 }
+            }
+            else
+            {
+                if(st.empty())
+                    break;
+                d--;
+                st.push(NULL);
+            }
+        }
+        return ans;
+    }
+};

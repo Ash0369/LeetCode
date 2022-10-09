@@ -1,4 +1,4 @@
-//Method-1 : 
+//Method-1 : Segment Tree
 
 class info
 {
@@ -67,7 +67,7 @@ public:
 };
 
 
-//Method-2 : (Just Less then 3second so ome times pass ,some times TLE)
+//Method-2 : Segment Tree (Just Less then 3second so ome times pass ,some times TLE)
 
 class RangeFreqQuery 
 {
@@ -126,5 +126,33 @@ public:
     int query(int left, int right, int value) 
     {
         return query_tree(0,0,n-1,left,right,value);
+    }
+};
+
+
+//Method-3 : Binary Search
+
+
+class RangeFreqQuery 
+{
+public:
+    unordered_map<int,vector<int>>mp;
+    int n;
+    RangeFreqQuery(vector<int>& arr) 
+    {
+        n=arr.size();
+        for(int i=0;i<n;i++)
+        {
+            mp[arr[i]].push_back(i);
+        }
+    }
+    
+    int query(int left, int right, int value)
+    {
+        int first=lower_bound(mp[value].begin(),mp[value].end(),left)-mp[value].begin();
+        
+        int second=upper_bound(mp[value].begin(),mp[value].end(),right)-mp[value].begin();
+        
+        return second-first;
     }
 };

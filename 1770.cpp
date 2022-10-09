@@ -58,3 +58,27 @@ public:
         return score(nums,multipliers,0,0,dp);
     }
 };
+
+
+//Method-3 : Top Down
+
+class Solution 
+{
+public:
+    int maximumScore(vector<int>& nums,vector<int>&multipliers) 
+    {
+        int n=nums.size();
+        int m=multipliers.size();
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        for(int i=m-1;i>=0;i--)
+        {
+            for(int low=i;low>=0;low--)
+            {
+                int start=(nums[low]*multipliers[i])+dp[low+1][i+1];
+                int end=(nums[n-1-i+low]*multipliers[i])+dp[low][i+1];
+                dp[low][i]=max(start,end); 
+            }
+        }
+        return dp[0][0];
+    }
+};

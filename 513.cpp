@@ -55,3 +55,27 @@ public:
         return prev;
     }
 };
+
+
+//Method-3 : Optimized BFS
+
+class Solution 
+{
+public:
+    int findBottomLeftValue(TreeNode* root) 
+    {
+        queue<TreeNode*>q;
+        q.push(root);
+        while(!q.empty())
+        {
+            root=q.front();
+            q.pop();
+            if(root->right) //Right first
+                q.push(root->right);
+            if(root->left)
+                q.push(root->left);
+           
+        }
+        return root->val;
+    }
+};

@@ -27,3 +27,31 @@ public:
         return data[mx_level];
     }
 };
+
+//Method-2 : BFS
+
+class Solution 
+{
+public:
+    int findBottomLeftValue(TreeNode* root) 
+    {
+        queue<TreeNode*>q;
+        q.push(root);
+        int prev=0;
+        while(!q.empty())
+        {
+            int k=q.size();
+            prev=q.front()->val;
+            for(int i=0;i<k;i++)
+            {
+                auto x=q.front();
+                q.pop();
+                if(x->left)
+                    q.push(x->left);
+                if(x->right)
+                    q.push(x->right);
+            }
+        }
+        return prev;
+    }
+};

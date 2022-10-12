@@ -79,3 +79,31 @@ public:
         return root->val;
     }
 };
+
+
+//Method-4 : Optimized DFS
+
+class Solution 
+{
+public:
+    
+    int mx_level=-1;
+    int data;
+    void dfs(TreeNode *root,int level)
+    {
+        if(root==NULL)
+            return;
+        if(level>mx_level)
+        {
+            mx_level=level;
+            data=root->val;
+        }
+        dfs(root->left,level+1);
+        dfs(root->right,level+1);
+    }
+    int findBottomLeftValue(TreeNode* root) 
+    {
+        dfs(root,0);
+        return data;
+    }
+};

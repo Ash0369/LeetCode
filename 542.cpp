@@ -61,3 +61,63 @@ public:
         return ans;
     }
 };
+
+
+//Method-2 : 
+
+
+#define mp(a,b,c) make_pair(make_pair(a,b),c)
+void bfs(vector<vector<int>>&visited,vector<vector<int>>& mat,vector<vector<int>>&ans, queue<pair<pair<int,int>,int>>&q)
+{
+    vector<int>dx={-1,0,1,0};
+    vector<int>dy={0,1,0,-1};
+    int m=mat.size();
+    int n=mat[0].size();
+    while(!q.empty())
+    {
+        int xc=q.front().first.first;
+        int yc=q.front().first.second;
+        int depth=q.front().second;
+    
+        q.pop();
+        ans[xc][yc]=depth;
+        for(int j=0;j<4;j++)
+        {
+            int nxc=xc+dx[j];
+            int nyc=yc+dy[j];
+            
+            if(nxc>=0 && nxc<m && nyc>=0 && nyc<n && visited[nxc][nyc]==false)
+            {
+                visited[nxc][nyc]=true;
+                q.push(mp(nxc,nyc,depth+1));
+            }
+        }
+    }
+}
+class Solution 
+{
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) 
+    {
+        
+        int m=mat.size();
+        int n=mat[0].size();
+        vector<vector<int>>ans(m,vector<int>(n,0));
+        vector<vector<int>>visited(m,vector<int>(n,0));
+        queue<pair<pair<int,int>,int>>q;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                
+                if(mat[i][j]==0)
+                {
+                    visited[i][j]=true;
+                    q.push(mp(i,j,0));
+                }  
+            }
+        }
+        bfs(visited,mat,ans,q);
+        return ans;
+    }
+};

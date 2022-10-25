@@ -1,3 +1,5 @@
+//Method-1 : DFS
+
 bool dfs(int node,vector<bool>&vis, vector<bool>&pvis,vector<vector<int>>&adj,  vector<int>&check)
 {
     vis[node]=true;
@@ -47,5 +49,53 @@ public:
         }
         
         return safe;
+    }
+};
+
+
+//Method-2 : BFS
+
+class Solution 
+{
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>&adj) 
+    {
+        int n=adj.size();
+        vector<int>adjrev[n];
+        vector<int>indegree(n,0);
+        for(int i=0;i<n;i++)
+        {
+            for(auto it:adj[i])
+            {
+                adjrev[it].push_back(i);
+                indegree[i]++;
+            }
+        }
+        
+        queue<int>q;
+        for(int i=0;i<n;i++)
+        {
+            if(indegree[i]==0)
+                q.push(i);
+        }
+        vector<int>ans;
+        
+        while(!q.empty())
+        {
+            int node=q.front();
+            q.pop();
+            ans.push_back(node);
+            for(auto x:adjrev[node])
+            {
+                indegree[x]--;
+                if(indegree[x]==0)
+                {
+                    q.push(x);
+                }
+            }
+        }
+        
+        sort(ans.begin(),ans.end());
+        return ans;
     }
 };

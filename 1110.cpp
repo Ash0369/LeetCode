@@ -12,7 +12,7 @@ void operation(TreeNode *&root,map<int,int>&mp)
         if(root->right)
             ans.push_back(root->right);
         root=NULL;
-        return;
+        delete root;
     }
     
 }

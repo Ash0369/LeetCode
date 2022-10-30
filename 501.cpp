@@ -28,3 +28,41 @@ public:
         return ans;
     }
 };
+
+
+//Method-2 in O(1) Space
+
+
+void inorder(TreeNode *root,vector<int>&ans,int &cnt,int &mx,int &prev)
+{
+    if(root==NULL)
+        return;
+    inorder(root->left,ans,cnt,mx,prev);
+    if(root->val==prev)
+        cnt++;
+    else
+        cnt=1;
+    if(cnt==mx)
+        ans.push_back(root->val);
+    if(cnt>mx)
+    {
+        ans.clear();
+        ans.push_back(root->val);
+        mx=cnt;
+    }
+    prev=root->val;
+    inorder(root->right,ans,cnt,mx,prev);
+}
+class Solution 
+{
+public:
+    vector<int> findMode(TreeNode* root) 
+    {
+        vector<int>ans;
+        int cnt=0;
+        int prev=-1;
+        int mx=0;
+        inorder(root,ans,cnt,mx,prev);
+        return ans;
+    }
+};

@@ -51,7 +51,7 @@ public:
 class Solution 
 {
 public:
-    int wordLadderLength(string beginWord, string endWord, vector<string>& wordList) 
+    int  ladderLength(string beginWord, string endWord, vector<string>& wordList) 
     {
         queue<pair<string,int>>q;
         q.push({beginWord,1});

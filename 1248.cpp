@@ -43,6 +43,7 @@ public:
 
 //Method-2 : 
 
+https://leetcode.com/problems/count-number-of-nice-subarrays/discuss/508217/C%2B%2B%3A-Visual-explanation.-O(1)-space.-Two-pointers ( Visulaization )
 
 class Solution 
 {

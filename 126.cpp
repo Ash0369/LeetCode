@@ -48,7 +48,8 @@ public:
                 auto node=q.front();
                 q.pop();
                 string s=node;
-                
+                if(s==endWord)
+                    break;
                 for(int j=0;j<s.length();j++)
                 {
                     for(int i=97;i<=122;i++)

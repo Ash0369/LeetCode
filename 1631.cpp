@@ -5,7 +5,7 @@ public:
     {
         int row=heights.size();
         int col=heights[0].size();
-       priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
         
         int dp[row][col];
         

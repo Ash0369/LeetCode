@@ -27,6 +27,9 @@ public:
             
             int x=node.second.first;
             int y=node.second.second;
+            
+            if(x==row-1 && y==col-1)
+                break;
             int val=node.first;
             int curr=heights[x][y];
             for(int i=0;i<4;i++)

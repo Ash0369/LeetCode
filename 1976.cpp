@@ -10,7 +10,7 @@ public:
         
         vector<pair<ll int,ll int>>vec[n];
         vector<ll int>dp(n,1e18);
-        vector<ll int>way(n,0);
+        vector<ll int>way(n,0); //It stores the number of way by which we can arraive at a node in shortest way
         way[0]=1;
         for(auto x:roads)
         {
@@ -34,12 +34,12 @@ public:
                 {
                     dp[x.first]=covered+x.second;
                     pq.push({covered+x.second,x.first});
-                    way[x.first]=(way[source]);
+                    way[x.first]=(way[source]);//Erased all previous shortest stored in x.first
                    
                 }
                 else if(dp[x.first]==covered+x.second)
                 {
-                    way[x.first]=(way[x.first]+way[source])%mod;  
+                    way[x.first]=(way[x.first]+way[source])%mod;  //ADD prev and more way we got
                 }
             }
         }

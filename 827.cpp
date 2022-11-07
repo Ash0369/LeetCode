@@ -101,6 +101,7 @@ public:
                         
                         if(nx>=0 && nx<n && ny>=0 && ny<n && grid[nx][ny]==1)
                             ds.union_by_size(ds.find_parent((n*j)+(i)),ds.find_parent((n*ny)+nx));
+                        //ds.union_by_size((n*j)+(i),ds.find_parent((n*ny)+nx));//Use for reducing TC
                     }
                 }
             }

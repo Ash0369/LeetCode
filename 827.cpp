@@ -121,7 +121,7 @@ public:
                         
                         if(nx>=0 && nx<n && ny>=0 && ny<n && grid[nx][ny]==1)
                         {
-                            st.insert(ds.find_parent(n*ny +nx));
+                            st.insert(ds.find_parent(n*ny +nx));//As might be chance that any adjcent sides are already connected so we just take unique parents.
                         }
                     }
                     for(auto x:st)

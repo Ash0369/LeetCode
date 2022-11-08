@@ -118,3 +118,46 @@ public:
         return n-not_connected;
     }
 };
+
+
+//Method-2 : Just Reducing ds size by finding maximum size
+
+class Solution 
+{
+public:
+    int removeStones(vector<vector<int>>& stones) 
+    {
+        int n=stones.size();
+        int mxr=1;
+        int mxc=1;
+        for(auto x:stones)
+        {
+            mxr=max(mxr,x[0]);
+            mxc=max(mxc,x[1]);
+        }
+        set<int>row;
+        set<int>col; //To check whatever row,col already visited
+        dsu ds(mxr+mxc+2);
+        int not_connected=0;
+        for(auto it:stones)
+        {
+            int x=it[0];
+            int y=it[1];
+            
+            if(row.find(x)==row.end() && col.find(y)==col.end())
+                not_connected++;
+            if(ds.find_parent(x)!=ds.find_parent(mxr+y+1))
+            {
+                 
+                 if(row.find(x)!=row.end() && col.find(y)!=col.end())
+                 {
+                     not_connected--;
+                 }
+                ds.union_by_size(x,mxr+y+1);
+            }
+            row.insert(x);
+            col.insert(y);   
+        }
+        return n-not_connected;
+    }
+};

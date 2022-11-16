@@ -89,23 +89,23 @@ public:
         
         for(int i=0;i<requests.size();i++)
         {
-            int a=requests[i][0];
-            int b=requests[i][1];
+            int a=ds.find_parent(requests[i][0]);
+            int b=ds.find_parent(requests[i][1]);
             bool ans=true;
             for(int j=0;j<restrictions.size();j++)
             {
-                int n1=restrictions[j][0];
-                int n2=restrictions[j][1];
+                int n1=ds.find_parent(restrictions[j][0]);
+                int n2=ds.find_parent(restrictions[j][1]);
                 
-                if(ds.find_parent(n1)==ds.find_parent(a) && ds.find_parent(n2)==ds.find_parent(b))
+                if(a==n1 && b==n2)
                 {
                     ans=false;
                     break;
                 }
-                if(ds.find_parent(n1)==ds.find_parent(b) && ds.find_parent(n2)==ds.find_parent(a))
+                if(a==n2 && b==n1)
                 {
-                        ans=false;
-                        break;
+                    ans=false;
+                    break;
                 }  
             }
             if(ans)

@@ -3,8 +3,9 @@
 
 class dsu
 {
-    vector<int>rank,parent,size;
     public:
+    vector<int>rank,parent,size;
+    
     dsu(int n)
     {
         rank.resize(n+1,0);//Work for both 0 or 1 based
@@ -145,16 +146,10 @@ public:
             }
         }
         int cnt=0;
-        for(int i=1;i<=n;i++)
-        {
-            
-            if(dsa.find_parent(i)==i)
-                cnt++;
-            if(dsb.find_parent(i)==i)
-                cnt++;
-        }
-        if(cnt>2)
-            return -1;
-        return ans;
+        
+        if(dsa.size[dsa.find_parent(1)]== n && dsb.size[dsb.find_parent(1)]== n )
+            return ans;
+       
+        return -1;
     }
 };

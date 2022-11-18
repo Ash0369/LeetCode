@@ -76,6 +76,10 @@ class dsu
     }
 
 };
+bool cmp(vector<int>&l,vector<int>&r)
+{
+        return l[2]<r[2];
+}
 class Solution 
 {
 public:
@@ -85,8 +89,8 @@ public:
         for(int i=0;i<queries.size();i++)
             queries[i].push_back(i);
         
-        sort(queries.begin(),queries.end(),[](auto &l,auto &r){return l[2]<r[2];});
-        sort(edgeList.begin(), edgeList.end(), [](auto &l, auto &r) { return l[2] < r[2]; });
+        sort(queries.begin(),queries.end(),cmp);
+        sort(edgeList.begin(), edgeList.end(),cmp);
         
         int i=0;
         vector<bool>result(queries.size());

@@ -246,3 +246,72 @@ public:
         return 1;
     }
 };
+
+
+
+//Method-3 : Binary search
+
+
+bool able_to_cross(int curr,vector<vector<int>>& cells,int row,int col)
+{
+    vector<vector<int>>vec(row+1,vector<int>(col+1,0));
+    for(int i=0;i<curr;i++)
+    {
+        vec[cells[i][0]][cells[i][1]]=1;//Marked Visited
+    }
+    queue<pair<int,int>>q;
+    int dx[4]={-1,0,1,0};
+    int dy[4]={0,1,0,-1};
+    for(int i=1;i<=col;i++)
+    {
+        if(vec[1][i]==0)
+        {
+            vec[1][i]=1;
+            q.push({1,i});//Pushing top row
+        }
+    }
+    while(!q.empty())
+    {
+        int x=q.front().first;
+        int y=q.front().second;
+        if(x==row)
+            return true;
+        q.pop();
+        for(int i=0;i<4;i++)
+        {
+            int nx=x+dx[i];
+            int ny=y+dy[i];
+            
+            if(nx>=1 && ny>=1 && nx<=row && ny<=col && vec[nx][ny]==0)
+            {
+                vec[nx][ny]=1;
+                q.push({nx,ny});
+            }
+        }
+    }
+    return false;
+}
+class Solution 
+{
+public:
+    int latestDayToCross(int row, int col, vector<vector<int>>& cells) 
+    {
+        int low=0;
+        int high=cells.size();
+        int ans=0;
+        while(low<=high)
+        {
+            int mid=(low+high)/2;
+            if(able_to_cross(mid,cells,row,col))
+            {
+                ans=max(ans,mid);
+                low=mid+1;
+            }
+            else
+            {
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+};

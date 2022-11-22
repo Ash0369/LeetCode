@@ -1,7 +1,5 @@
 int dfs(Node *root)
 {
-    if(root->children.size()==0)
-        return 1;
     int mx_depth=0;
     for(auto x:root->children)
     {

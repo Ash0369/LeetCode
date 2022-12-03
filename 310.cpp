@@ -52,3 +52,59 @@ public:
         
     }
 };
+
+
+//Method-2 : https://leetcode.com/problems/minimum-height-trees/discuss/1630778/C%2B%2B-Simple-Solution-or-Topological-Sort-or-W-Explanation
+
+
+class Solution 
+{
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges)
+    {
+        vector<int>indegree(n);
+        vector<vector<int>>graph(n);
+        for(auto x:edges)
+        {
+            indegree[x[0]]++;
+            indegree[x[1]]++;
+            graph[x[0]].push_back(x[1]);
+            graph[x[1]].push_back(x[0]);
+        }
+        queue<int>q;
+        vector<int>ans;
+        for(int i=0;i<n;i++)
+        {
+            if(indegree[i]==1)
+            {
+                q.push(i);
+                indegree[i]=0;
+            }
+        }
+        
+        while(!q.empty())
+        {
+            int sz=q.size();
+            ans.clear();
+            for(int i=0;i<sz;i++)
+            {
+                int a=q.front();
+                ans.push_back(a);
+                q.pop();
+                for(auto x:graph[a])
+                {
+                    indegree[x]--;
+                    if(indegree[x]==1)
+                    {
+                        q.push(x);
+                    }
+                }
+            }
+        }
+        
+        if(n==1)
+            ans.push_back(0);
+        return ans;
+        
+    }
+};

@@ -1,5 +1,6 @@
 //Method-1 : Brute Force --> Removing every edges and checking
 
+
 class dsu
 {
     vector<int>rank,parent,size;
@@ -110,7 +111,7 @@ public:
         int n=edges.size();
         int ans;
         
-        for(int i=0;i<n;i++)
+        for(int i=n-1;i>=0;i--)
         {
             bool res=true;
             //Excluding ith edge
@@ -147,7 +148,10 @@ public:
                 }
             }
             if(res==true)
+            {
                 ans=i;
+                break;
+            }
         }
         return edges[ans];
     }

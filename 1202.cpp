@@ -111,7 +111,7 @@ public:
         {
             ds.union_by_rank(x[0],x[1]);
         }
-        map<int,vector<int>>mp;
+        unordered_map<int,string>mp;
         for(int i=0;i<n;i++)
         {
             mp[ds.find_parent(i)].push_back(s[i]);

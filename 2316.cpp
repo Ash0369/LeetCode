@@ -137,3 +137,44 @@ public:
         return ans/2;
     }
 };
+
+
+//Method-2 : DFS
+
+int dfs(int node,vector<vector<int>>&graph,vector<bool>&dp)
+{
+    int cnt=1;
+    dp[node]=true;
+    for(auto x:graph[node])
+    {
+        if(dp[x]==false)
+        {
+            cnt+=dfs(x,graph,dp);
+        }
+    }
+    return cnt;
+}
+class Solution 
+{
+public:
+    long long countPairs(int n, vector<vector<int>>& edges) 
+    {
+        vector<bool>dp(n,false);
+        vector<vector<int>>graph(n);
+        for(auto x:edges)
+        {
+            graph[x[0]].push_back(x[1]);
+            graph[x[1]].push_back(x[0]);
+        }
+        long long int ans=(n*1LL*(n-1))/2;
+        for(int i=0;i<n;i++)
+        {
+            if(dp[i]==false)
+            {
+                long long int temp=dfs(i,graph,dp);
+                ans-=(temp*(temp-1))/2;
+            }
+        }
+        return ans;
+    }
+};

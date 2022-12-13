@@ -1,3 +1,9 @@
+//Method-1 : 
+
+//Using Union Find
+
+//Time complexity will be high as repeated check for same element
+
 unordered_map<int,int>mp;
 unordered_map<int,int>parent;
 
@@ -101,6 +107,89 @@ public:
             }
         }
         
+        return {grp,mx_size};
+    }
+};
+
+
+//Method-2 : DFS
+
+//Less Complexity compared to Union Find
+
+unordered_map<int,int>mp;
+
+int dfs(int num)
+{
+    int sz=mp[num];
+    mp.erase(num);
+    for(int i=0;i<26;i++)
+    {
+        if(num&(1<<i))
+        {
+            //Removing the set bit and checking
+            int ne=1<<i;
+            int nnum=(num&(~ne));
+            
+            if(mp.find(nnum)!=mp.end())
+                sz=sz+dfs(nnum);
+            
+            //Replacing
+            
+            for(int j=0;j<26;j++)
+            {
+                if(i==j)
+                    continue;
+                 
+                if((num&(1<<j))==0)//that replacing bit should not be set
+                {
+                   
+                    int temp=nnum;//Taken after unsetting the current bit
+                    temp=temp|(1<<j); //Setting the replacing bit
+                    if(mp.find(temp)!=mp.end())
+                        sz=sz+dfs(temp);
+                }
+            }
+        }
+        else
+        {
+            //If current bit is not set then we can set it and try
+            int temp=num;
+            temp=temp|(1<<i);
+            if(mp.find(temp)!=mp.end())
+                sz=sz+dfs(temp);
+        }
+    }
+    return sz;
+}
+class Solution 
+{
+public:
+    vector<int> groupStrings(vector<string>& words) 
+    {
+        mp.clear();
+        int grp=0;
+        int mx_size=0;
+        for(auto x:words)
+        {
+            int temp=0;
+            for(char c:x)
+            {
+                temp=temp|(1<<(c-'a'));
+            }
+            mp[temp]++;
+        }
+        while(!mp.empty())
+        {
+            
+            auto x=mp.begin();
+            int num=x->first;
+            int k=dfs(num);
+            if(k>0)
+            {
+                grp++;
+                mx_size=max(mx_size,k);
+            }
+        }
         return {grp,mx_size};
     }
 };

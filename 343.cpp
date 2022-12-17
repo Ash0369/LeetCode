@@ -1,3 +1,5 @@
+//Method-1 : Recursive
+
 int find(int n,vector<int>&dp)
 {
     if(n==0)
@@ -23,5 +25,32 @@ public:
         vector<int>dp(n+1,-1);
         int ans=find(n,dp);
         return ans;
+    }
+};
+
+
+//Method-2 : Iteratitive
+
+class Solution 
+{
+public:
+    int integerBreak(int n) 
+    {
+        vector<int>dp(n+1,0);
+        for(int i=0;i<=n;i++)
+            dp[i]=i;
+        //dp[i] denotes maximum product if we break i in more then 2 parts.
+        dp[1]=1;
+        for(int i=2;i<=n;i++)
+        {
+            dp[i]=0;
+            for(int j=1;j<i;j++)
+            {
+                int first=j;
+                int second=i-j;
+                dp[i]=max(dp[i],max(first,dp[first])*max(second,dp[second]));
+            }
+        }
+        return dp[n];
     }
 };

@@ -4,13 +4,8 @@ public:
     int maxCandies(vector<int>& status, vector<int>& candies, vector<vector<int>>& keys, vector<vector<int>>& containedBoxes, vector<int>& initialBoxes) 
     {
         int n=status.size();
-        map<int,bool>box;
-        map<int,bool>key;
-        /*
-        unordered_map<int,bool>box;
-        unordered_map<int,bool>key;
-        Both will work
-        */
+        vector<bool>box(n,false);
+        vector<bool>key(n,false);
         int tofee=0;
         vector<bool>dp(n,false);
         queue<int>q;

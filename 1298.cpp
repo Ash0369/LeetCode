@@ -6,6 +6,11 @@ public:
         int n=status.size();
         map<int,bool>box;
         map<int,bool>key;
+        /*
+        unordered_map<int,bool>box;
+        unordered_map<int,bool>key;
+        Both will work
+        */
         int tofee=0;
         vector<bool>dp(n,false);
         queue<int>q;

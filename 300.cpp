@@ -226,3 +226,55 @@ public:
        return ans+1;  
     }
 };
+
+
+//Method-8 : 
+//https://www.youtube.com/results?search_query=longest+increasing+subsequence
+
+
+int get_best_candidates(map<int,int>&candidates,int v)
+{
+    auto it=candidates.lower_bound(v);//smallest value greater then or equal to v
+    if(it==candidates.begin())
+        return 0;
+    it--;//smallest value strictly less then v
+    return it->second;
+}
+void check_and_insert(map<int,int>&candidates,int v,int adv)
+{
+    if(candidates[v]>=adv)
+    {
+        return;
+    }
+    else
+    {
+        candidates[v]=adv;
+        auto it=candidates.find(v);
+        it++;
+        while(it!=candidates.end() && it->second<=adv)
+        {
+            auto temp=it;
+            it++;
+            candidates.erase(temp);
+        }
+    }
+}
+class Solution 
+{
+public:
+    int lengthOfLIS(vector<int>& nums) 
+    {
+        int n=nums.size();
+        vector<int>dp(n+1,0);
+        map<int,int>candidates;
+        dp[0]=1;
+        candidates[nums[0]]=1;
+        for(int i=1;i<n;i++)
+        {
+            dp[i]=1+get_best_candidates(candidates,nums[i]);
+            check_and_insert(candidates,nums[i],dp[i]);
+        }
+
+       return *max_element(dp.begin(),dp.end());  
+    }
+};

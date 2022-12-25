@@ -1,3 +1,5 @@
+//Method-1 : 
+
 class Solution 
 {
 public:
@@ -31,5 +33,24 @@ public:
             n=n>>1;
         }
         return true;
+    }
+};
+
+
+//Method-2 : 
+//https://leetcode.com/problems/binary-number-with-alternating-bits/discuss/2680216/C%2B%2B-or-two-line-or-XOR
+
+class Solution 
+{
+public:
+    bool hasAlternatingBits(int n) 
+    {
+        long long a=(n^(n>>1)); //Right shift n xor with n
+        
+        //If alernating bits diff then n will be like 1111..
+        
+        //Now if we add 1 and take and operation then it will be zero
+        
+        return !(a&(a+1));
     }
 };

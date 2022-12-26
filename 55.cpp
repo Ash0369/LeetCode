@@ -1,4 +1,4 @@
-//Method-1 : 
+//Method-1 : Dynamic programming solution
 
 bool jump(vector<int>&nums,int index,vector<int>&dp)
 {
@@ -25,7 +25,7 @@ public:
     }
 };
 
-//Method-2 : 
+//Method-2 : Dynamic programming solution
 
 class Solution 
 {
@@ -49,5 +49,26 @@ public:
             
         }
         return dp[n-1];
+    }
+};
+
+
+//Method-3 : Greddy solution (fastest)
+
+class Solution 
+{
+public:
+    bool canJump(vector<int>& nums) 
+    {
+        int n=nums.size();
+        int currmax=0;
+        for(int i=0;i<n;i++)
+        {
+            currmax=max(currmax,nums[i]);
+            if(currmax<=0 && i!=n-1)//If 0 becoming at last index then it already reached
+                return false;
+            currmax--;
+        }
+        return true;
     }
 };

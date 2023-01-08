@@ -33,3 +33,39 @@ public:
 
 //Method-2 : 
 
+
+class Solution 
+{
+public:
+    int maxSumDivThree(vector<int>& nums) 
+    {
+        int n=nums.size();
+        vector<vector<int>>dp(n+2,vector<int>(3,0));
+        //dp[i][j]--> Max sum till ith index if mod is j
+        dp[0][0]=0;
+        dp[0][1]=-1;
+        dp[0][2]=-1;
+        for(int i=1;i<=n;i++)
+        {
+            int r=nums[i-1]%3;
+            for(int j=0;j<=2;j++)
+            {
+                int pick=-1;
+                int not_pick=dp[i-1][j];
+                
+                for(int k=0;k<=2;k++)
+                {
+                    if((k+r)%3==j && dp[i-1][k]!=-1)
+                    {
+                        pick=nums[i-1]+dp[i-1][k];
+                        break;
+                    }
+                }
+                
+                dp[i][j]=max(pick,not_pick);
+            }
+            
+        }
+        return dp[n][0];
+    }
+};

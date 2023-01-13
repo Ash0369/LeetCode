@@ -121,3 +121,40 @@ public:
         return prev;
     }
 };
+
+
+//Method-4 : 
+
+
+class Solution 
+{
+public:
+    int minPathSum(vector<vector<int>>& grid) 
+    {
+        int m=grid.size();
+        int n=grid[0].size();
+        int dp[m][n];
+        int dx[2]={-1,0};
+        int dy[2]={0,-1};
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                int temp=5000000;
+                for(int k=0;k<2;k++)
+                {
+                    int nx=i+dx[k];
+                    int ny=j+dy[k];
+                    if(nx>=0 && ny>=0 && nx<m && ny<n)
+                    {
+                        temp=min(temp,dp[nx][ny]);
+                    }
+                }
+                if(temp==5000000)
+                    temp=0;
+                dp[i][j]=grid[i][j]+temp;
+            }
+        }
+        return dp[m-1][n-1];
+    }
+};

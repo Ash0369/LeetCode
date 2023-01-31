@@ -1,3 +1,5 @@
+//Method-1 : 
+
 int team(vector<pair<int,int>>&vec,int index,int last,vector<vector<int>>&dp)
 {
     int n=vec.size();
@@ -38,5 +40,46 @@ public:
         int n=ages.size();
         vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
         return team(vec,0,-1,dp);
+    }
+};
+
+
+//Method-2 : 
+
+bool cmp(pair<int,int>&p1,pair<int,int>&p2)
+{
+    if(p1.second<p2.second)
+        return true;
+    if(p1.second==p2.second && p1.first<p2.first)
+        return true;
+    return false;
+}
+class Solution 
+{
+public:
+    int bestTeamScore(vector<int>& scores, vector<int>& ages) 
+    {
+        vector<pair<int,int>>vec;
+        for(int i=0;i<ages.size();i++)
+        {
+            vec.emplace_back(scores[i],ages[i]);
+        }
+        sort(vec.begin(),vec.end(),cmp);
+        int n=ages.size();
+        vector<int>dp(n);
+        
+        for(int i=0;i<n;i++)
+        {
+            dp[i]=vec[i].first;
+            int mx=0;
+            for(int j=i-1;j>=0;j--)
+            {
+                if(dp[i]>=vec[j].first)
+                    mx=max(mx,dp[j]);
+            }
+            dp[i]+=mx;
+        }
+        sort(dp.begin(),dp.end());
+        return dp[n-1];
     }
 };

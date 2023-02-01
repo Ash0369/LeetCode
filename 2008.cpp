@@ -78,3 +78,39 @@ public:
         return taxi(rides,0,dp,start);
     }
 };
+
+
+//Method-3 :
+
+#define ll long long
+int find(int curr,vector<int>&start)
+{
+    int ind=lower_bound(start.begin(),start.end(),curr)-start.begin();
+    return ind;
+}
+class Solution 
+{
+public:
+    long long maxTaxiEarnings(int n, vector<vector<int>>& rides) 
+    {
+        sort(rides.begin(),rides.end());
+        vector<int>start;
+        for(auto x:rides)
+        {
+            start.emplace_back(x[0]);
+        }
+        int len=rides.size();
+        vector<ll int>dp(len+1);
+        vector<ll int>mdp(len+1);//Max value of dp in suffix
+        dp[len]=0;
+        mdp[len]=0;
+        for(int i=len-1;i>=0;i--)
+        {
+            int dest=find(rides[i][1],start);
+            ll int benefit=0;
+            dp[i]=mdp[dest]+rides[i][1]-rides[i][0]+rides[i][2];
+            mdp[i]=max(dp[i],mdp[i+1]);
+        }
+        return mdp[0];
+    }
+};

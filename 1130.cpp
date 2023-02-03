@@ -1,3 +1,6 @@
+//Method-1 : Dynamic Programming
+
+
 int maxele(int left,int right,vector<int>&arr)
 {
     int ans=0;
@@ -38,3 +41,35 @@ public:
         return leaf(0,n-1,arr,dp);
     }
 };
+
+
+//Method-2 : Greedy
+
+class Solution 
+{
+public:
+    int mctFromLeafValues(vector<int>& arr) 
+    {
+        int n=arr.size();
+        int ans=0;
+        while(arr.size()>1)
+        {
+            int mn=INT_MAX;
+            int ind=0;
+            for(int i=1;i<arr.size();i++)
+            {
+                int val=arr[i]*arr[i-1]; 
+                if(val<mn)
+                {
+                    mn=val;
+                    ind=arr[i]<arr[i-1] ? i:i-1;
+                }
+            }
+            ans+=mn;
+            arr.erase(arr.begin()+ind);
+            
+        }
+        return ans;
+    }
+};
+

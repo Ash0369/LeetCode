@@ -14,8 +14,8 @@ class Solution
 public:
     bool checkInclusion(string s1, string s2) 
     {
-        vector<int>dp1(26,0);
-        vector<int>dp2(26,0);
+        vector<int>dp1(26,0);//Curr frequency
+        vector<int>dp2(26,0);//Actual frequency
         
         for(int i=0;i<s1.length();i++)
         {

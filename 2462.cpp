@@ -1,3 +1,53 @@
+//Method-1 :
+
+class Solution 
+{
+public:
+    long long totalCost(vector<int>& costs, int k, int candidates) 
+    {
+        #define ll long long
+        #define pii pair<int,int>
+        priority_queue<pii,vector<pii>,greater<pii>>pq;
+        int left=0;
+        for(;left<candidates;left++)
+        {
+            pq.push({costs[left],0});
+        }
+        int n=costs.size();
+        int right=max(left,n-candidates);
+        for(int i=right;i<n;i++)
+        {
+            pq.push({costs[i],1});
+        }
+        right--;
+        ll int ans=0;
+        for(int i=0;i<k;i++)
+        {
+            ans+=pq.top().first;
+            int dir=pq.top().second;
+            pq.pop();
+            if(left>right)
+            {
+                continue;
+            }
+            if(dir==0)
+            {
+                pq.push({costs[left],0});
+                left++;
+            }
+            else
+            {
+                pq.push({costs[right],1});
+                right--;
+            }
+        }
+        return ans;
+    }
+};
+
+//Method-2 : 
+
+
 class Solution 
 {
 public:

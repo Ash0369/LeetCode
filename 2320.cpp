@@ -86,3 +86,26 @@ public:
         return (1+dp[n][0][0]+dp[n][0][1]+dp[n][1][0]+dp[n][1][1])%mod;
     }
 };
+
+
+//Method-3 : 
+//https://leetcode.com/problems/count-number-of-ways-to-place-houses/discuss/2198119/House-Robber-2
+
+
+#define ll long long
+int mod=1e9+7;
+class Solution 
+{
+public:
+    int countHousePlacements(int n) 
+    {
+       int placed = 0, empty = 1, res = 1;
+       for (int i=1;i<=n;i++) 
+       {
+           placed=empty;
+           empty=res;
+           res=(placed+empty)%mod;
+       }
+       return (1LL*res*res)%mod;
+    }
+};

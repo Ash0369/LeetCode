@@ -29,3 +29,40 @@ public:
         return ways(low,high,0,one,zero,dp); 
     }
 };
+
+
+//Method-2 : 
+
+
+int mod=1e9+7;
+class Solution 
+{
+public:
+    int countGoodStrings(int low, int high, int zero, int one) 
+    {
+        vector<int>dp(high+1,0);
+        int ans=0;
+        dp[one]=1;
+        dp[zero]=1;
+        for(int i=min(one,zero);i<=high;i++)
+        {
+            if(i-one>=0)
+            {
+                dp[i]=(dp[i]+dp[i-one])%mod;
+            }
+            if(i-zero>=0)
+            {
+                dp[i]=(dp[i]+dp[i-zero])%mod;
+            }
+            if(i>=low)
+            {
+                ans=(ans+dp[i])%mod;
+            }
+        }
+        if(one==zero)
+        {
+            ans=(ans+ans)%mod;
+        }
+        return ans; 
+    }
+};

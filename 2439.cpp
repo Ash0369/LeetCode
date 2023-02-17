@@ -1,3 +1,5 @@
+//Method-1 : 
+
 #define ll long long
 bool check(int mid,vector<int>&nums)
 {
@@ -48,5 +50,36 @@ public:
             }
         }
         return ans;
+    }
+};
+
+
+//Method-2 : 
+
+
+class Solution 
+{
+public:
+    int minimizeArrayValue(vector<int>& nums) 
+    {
+        #define ll long long
+        int n=nums.size();
+        ll int sum=0;
+        int res=0;
+        for(int i=1;i<=n;i++)
+        {
+            int get=0;
+            sum+=nums[i-1];
+            if(sum%i==0)
+            {
+                get=sum/i;
+            }
+            else
+            {
+                get=(sum/i)+1;
+            }
+            res=max(res,get);
+        }
+        return res;
     }
 };

@@ -3,12 +3,11 @@ class Solution
 public:
     int distinctPrimeFactors(vector<int>& nums) 
     {
-        sort(nums.begin(),nums.end());
-        set<int>st;
+        unordered_set<int>st;
         for(auto x:nums)
         {
             int d=2;
-            while(x>1)
+            while(x>1 && d<=sqrt(1000))
             {
                 if(x%d==0)
                 {
@@ -19,6 +18,10 @@ public:
                 {
                     d++;
                 }
+            }
+            if(x!=1)
+            {
+                st.insert(x);
             }
         }
         return st.size();

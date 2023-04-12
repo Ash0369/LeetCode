@@ -1,24 +1,48 @@
-class Solution {
+class Solution 
+{
 public:
-    vector<vector<int>> subsets(vector<int>& nums)
+    string simplifyPath(string path)
     {
-        vector<vector<int>>sol;
-        int s=nums.size();
-        int count=1<<s;
-        for(int i=0;i<count;i++)
+        stack<string>st;
+        string ans="";
+        for(int i=0;i<path.size();i++)
         {
-            vector<int>sub;
-            for(int j=0;j<s;j++)
+            char c=path[i];
+            if(c=='/')
             {
-                int temp=1<<j;
-                int res=temp&i;
-                if(res!=0)
+                int j=i+1;
+                string temp="";
+                while(j<path.size() && path[j]!='/')
                 {
-                    sub.push_back(nums[j]);
+                    temp.push_back(path[j]);
+                    j++;
+                }
+                if(temp=="..")
+                {
+                    if(!st.empty())
+                    {
+                        st.pop();
+                    }
+                }
+                else if(temp=="." || temp=="")
+                {
+                    continue;
+                }
+                else
+                {
+                    st.push(temp);
                 }
             }
-            sol.push_back(sub);
         }
-        return sol;
+        while(!st.empty())
+        {
+            ans="/"+st.top()+ans;
+            st.pop();
+        }
+        if(ans=="")
+        {
+            ans.push_back('/');
+        }
+        return ans;
     }
 };

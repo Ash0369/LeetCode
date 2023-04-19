@@ -1,3 +1,5 @@
+//Method-1 : 
+
 class Solution 
 {
 public:
@@ -13,6 +15,10 @@ public:
         int step=1;
         q.push({0,0});
         vector<vector<int>>dp(m+1,vector<int>(n+1,-1));
+        vector<int>row(m+1,0);
+        vector<int>col(n+1,0);
+        row[0]=0;
+        col[0]=0;
         while(!q.empty())
         {
             int sz=q.size();
@@ -21,26 +27,35 @@ public:
                 int x=q.front().first;
                 int y=q.front().second;
                 q.pop();
-                for(int i=1;i<=grid[x][y];i++)
+                int start=max(row[x],y);
+                for(int i=start+1;i<=min(n-1,grid[x][y]+y);i++)
                 {
-                    if(x+i<m && dp[x+i][y]==-1)
+                    if(i<n && dp[x][i]==-1)
                     {
-                        dp[x+i][y]=1;
-                        if(x+i==m-1 && y==n-1)
+                        dp[x][i]=1;
+                        if(i==n-1 && x==m-1)
                         {
                             return step+1;
                         }
-                        q.push({x+i,y});
+                        q.push({x,i});
                     }
-                    if(y+i<n && dp[x][y+i]==-1)
+                    if(i==(row[x]+1))
+                    row[x]=i;
+                }
+                start=max(x,col[y]);
+                for(int i=start+1;i<=min(m-1,grid[x][y]+x);i++)
+                {
+                    if(i<m && dp[i][y]==-1)
                     {
-                        dp[x][y+i]=1;
-                        if(y+i==n-1 && x==m-1)
+                        dp[i][y]=1;
+                        if(i==m-1 && y==n-1)
                         {
                             return step+1;
                         }
-                        q.push({x,y+i});
+                        q.push({i,y});
                     }
+                    if(i==(col[y]+1))
+                    col[y]=i;
                 }
             }
             step++;

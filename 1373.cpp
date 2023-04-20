@@ -1,3 +1,5 @@
+//Method-1 : 
+
 #define ll long long
 ll int ans;
 ll int inf=-1*1e18;
@@ -47,6 +49,40 @@ vector<ll int>dfs(TreeNode *root)
         return {v[0]+root->val,root->val,v[2]};
     }
     return {inf,0,0};
+}
+class Solution 
+{
+public:
+    int maxSumBST(TreeNode* root) 
+    {
+        ans=0;
+        ans=max(ans,dfs(root)[0]);
+        return ans;
+    }
+};
+
+
+//Method-2 : 
+
+#define ll long long
+ll int ans;
+ll int inf=-1*1e18;
+ll int pinf=1e18;
+vector<ll int>dfs(TreeNode *root)
+{
+    if(root==NULL)
+    {
+        return {0,pinf,inf};
+    }
+    auto u=dfs(root->left);
+    auto v=dfs(root->right);
+    if(root->val>u[2] && root->val<v[1])
+    {
+        ans=max(ans,u[0]+v[0]+root->val);
+        return {u[0]+v[0]+root->val,min(u[1],1LL*root->val),max(v[2],1LL*root->val)};
+    }
+    return {max(u[0],v[0]),inf,pinf};
+   
 }
 class Solution 
 {

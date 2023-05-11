@@ -1,3 +1,5 @@
+//Method-1 : 
+
 int dfs(vector<int>& nums1,vector<int>& nums2,int n,int m,int last,int index,vector<vector<int>>&dp)
 {
     if(index==n)
@@ -51,30 +53,6 @@ public:
     {
         int n=nums1.size();
         int m=nums2.size();
-        vector<int>near(n,-2);
-        
-        for(int i=0;i<n;i++)
-        {
-            for(int j=min(m-1,i);j>=0;j--)
-            {
-                if(nums1[i]==nums2[j])
-                {
-                    near[i]=j;
-                    break;
-                }
-            }
-            if(near[i]==-2)
-            {
-                for(int j=i+1;j<m;j++)
-                {
-                    if(nums1[i]==nums2[j])
-                    {
-                        near[i]=j;
-                        break;
-                    }
-                }
-            }
-        }
         vector<vector<int>>dp(n,vector<int>(m+3,-1));
         return dfs(nums1,nums2,n,m,-1,0,dp);
     }

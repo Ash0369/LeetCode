@@ -1,3 +1,5 @@
+//Method-1 : 
+
 #define ll long long
 ll int dp[100005];
 ll int dfs(int index,vector<vector<int>>& questions)
@@ -25,5 +27,37 @@ public:
     {
         memset(dp,-1,sizeof(dp));
         return dfs(0,questions);
+    }
+};
+
+//Method-2 : 
+
+#define ll long long
+
+class Solution 
+{
+public:
+    long long mostPoints(vector<vector<int>>& questions) 
+    {
+        int n=questions.size();
+        ll int dp[100005];
+        memset(dp,0,sizeof(dp));
+        for(int i=n-1;i>=0;i--)
+        {
+            //not pick
+            dp[i]=dp[i+1];
+            
+            //pick
+            
+            ll int ans=questions[i][0];
+            if(i+questions[i][1]+1<n)
+            {
+                ans+=dp[i+questions[i][1]+1];
+            }
+            
+            dp[i]=max(dp[i],ans);
+            
+        }
+        return dp[0];
     }
 };

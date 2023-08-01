@@ -14,6 +14,7 @@ bool check_sametree(TreeNode *root1,TreeNode *root2)
     }
     bool a=check_sametree(root1->left,root2->right);
     bool b=check_sametree(root1->right,root2->left);
+    
     return a&b;
 
 }

@@ -1,0 +1,3 @@
+SELECT class 
+FROM (SELECT class,COUNT(student) as cnt FROM Courses GROUP BY class)tb
+WHERE cnt>4

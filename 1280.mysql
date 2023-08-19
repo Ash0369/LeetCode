@@ -1,0 +1,5 @@
+SELECT ot.student_id,student_name,ot.subject_name,IFNULL(attended_exams,0) as attended_exams FROM (SELECT * FROM Students CROSS JOIN Subjects) as ot 
+LEFT JOIN (SELECT student_id,subject_name,Count(*) as attended_exams
+FROM Examinations GROUP BY subject_name,student_id)nt ON ot.student_id=nt.student_id and ot.subject_name=nt.subject_name
+
+ORDER BY student_id,subject_name
